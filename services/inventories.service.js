@@ -13,9 +13,8 @@ class InventorieService
     for (let index = 0; index < limit; index++) {
       this.inventories.push({
       id_inventario: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_producto: faker.datatype.uuid(),
+      cantidad: faker.datatype.number(),
     });
   }
   return this.inventories;

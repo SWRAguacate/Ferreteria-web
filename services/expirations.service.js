@@ -13,9 +13,8 @@ class ExpirationService
     for (let index = 0; index < limit; index++) {
       this.expirations.push({
       id_expiracion: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_pedido: faker.datatype.uuid(),
+      fecha: faker.date.future(),
     });
   }
   return this.expirations;

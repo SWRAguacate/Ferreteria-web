@@ -13,9 +13,10 @@ class OrderService
     for (let index = 0; index < limit; index++) {
       this.orders.push({
       id_pedido: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_usuario: faker.datatype.uuid(),
+      fecha: faker.date.future(),
+      total_pedido: faker.finance.amount(),
+      codigo: faker.datatype.number()
     });
   }
   return this.orders;

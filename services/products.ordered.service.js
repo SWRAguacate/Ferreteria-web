@@ -13,9 +13,10 @@ class ProductsOrderedService
     for (let index = 0; index < limit; index++) {
       this.productsOrdered.push({
         id_producto_pedido: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_pedido: faker.datatype.uuid(),
+      id_producto: faker.datatype.uuid(),
+      cantidad: faker.datatype.number(),
+      total_producto: faker.datatype.number()
     });
   }
   return this.productsOrdered;

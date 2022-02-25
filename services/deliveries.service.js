@@ -13,9 +13,8 @@ class DeliverieService
     for (let index = 0; index < limit; index++) {
       this.deliveries.push({
       id_entrega: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_pedido: faker.datatype.uuid(),
+      fecha: faker.date.past()
     });
   }
   return this.deliveries;

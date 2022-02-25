@@ -13,9 +13,9 @@ class CalificationService
     for (let index = 0; index < limit; index++) {
       this.califications.push({
       id_calificacion: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_producto: faker.datatype.uuid(),
+      id_usuario: faker.datatype.uuid(),
+      like_dislike: faker.datatype.boolean()
     });
   }
   return this.califications;
