@@ -13,9 +13,7 @@ class categorieService
     for (let index = 0; index < limit; index++) {
       this.categories.push({
       id_categoria: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      nombre: faker.name.findName()
     });
   }
   return this.categories;
