@@ -13,9 +13,10 @@ class CartService
     for (let index = 0; index < limit; index++) {
       this.carts.push({
       id_carrito: faker.datatype.uuid(),
-      name: faker.name.findName(),
-      mail: faker.internet.email(),
-      password: faker.internet.password()
+      id_usuario: faker.name.findName(),
+      id_producto: faker.internet.email(),
+      cantidad: faker.internet.password(),
+      total_producto: parseInt(faker.commerce.price(), 10)
     });
   }
   return this.carts;
