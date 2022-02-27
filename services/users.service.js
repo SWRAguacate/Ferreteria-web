@@ -22,10 +22,17 @@ class UserService
   }
 
   find(size){
-    return this.users.filter((item, index) => item && index < size);
+    if(!this.users)
+      throw boom.notFound('Usuarios no existentes');
+    const user = this.users.filter((item, index) => item && index < size);
+    if(!user)
+      throw boom.notFound('Usuarios no disponibles');
+    return user;
   }
 
   findOne(id){
+    if(!this.users)
+      throw boom.notFound('Usuarios no existentes');
     const product = this.users.find(item=> item.id_usuario === id);
     if(!product)
       throw boom.notFound('Usuario no encontrado');
@@ -33,6 +40,8 @@ class UserService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_usuario: faker.datatype.uuid(),
       ...data
@@ -45,6 +54,8 @@ class UserService
     const index = this.users.findIndex(item => item.id_usuario === id);
     if(index === -1)
       throw boom.notFound('Usuario no encontrado');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.users[index];
     this.users[index] = {
       ...currentUser,

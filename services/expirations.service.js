@@ -21,10 +21,17 @@ class ExpirationService
   }
 
   find(size){
-    return this.expirations.filter((item, index) => item && index < size);
+    if(!this.expirations)
+      throw boom.notFound('Expiraciones no existentes');
+    const expiration = this.expirations.filter((item, index) => item && index < size);
+    if(!expiration)
+      throw boom.notFound('Expiraciones no disponibles');
+    return expiration;
   }
 
   findOne(id){
+    if(!this.expirations)
+      throw boom.notFound('Expiraciones no existentes');
     const product = this.expirations.find(item=> item.id_expiracion === id);
     if(!product)
       throw boom.notFound('Expiracion no encontrada');
@@ -32,6 +39,8 @@ class ExpirationService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_expiracion: faker.datatype.uuid(),
       ...data
@@ -44,6 +53,8 @@ class ExpirationService
     const index = this.expirations.findIndex(item => item.id_expiracion === id);
     if(index === -1)
       throw boom.notFound('Expiracion no encontrada');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.expirations[index];
     this.expirations[index] = {
       ...currentUser,

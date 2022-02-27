@@ -1,6 +1,8 @@
 const express = require('express');
 const UserService = require('../services/users.service');
 const service = new UserService();
+const validatorHandler = require('../middlewares/validator.handler');
+const { createUserDto, updateUserDto, getIdUserDto } = require('../middlewares/dtos/user.dto');
 const router = express.Router();
 
 // SELECT
@@ -15,7 +17,7 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT ONE
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdUserDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const user = service.findOne(id);
@@ -30,7 +32,7 @@ router.get('/:id', (req, res, next)=> {
 });
 
 //CREATE
-router.post('/', (req, res, next)=> {
+router.post('/', validatorHandler(createUserDto, 'body'), (req, res, next)=> {
   try {
     const body = req.body;
     const user = service.create(body);
@@ -45,7 +47,7 @@ router.post('/', (req, res, next)=> {
 });
 
 //UPDATE
-router.patch('/:id', (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdUserDto, 'params'), validatorHandler(updateUserDto, 'body'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
@@ -64,7 +66,7 @@ router.patch('/:id', (req, res, next)=> {
 });
 
 //DELETE
-router.delete('/:id', (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdUserDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const user = service.delete(id);

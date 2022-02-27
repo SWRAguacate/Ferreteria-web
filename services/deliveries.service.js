@@ -21,10 +21,17 @@ class DeliverieService
   }
 
   find(size){
-    return this.deliveries.filter((item, index) => item && index < size);
+    if(!this.deliveries)
+      throw boom.notFound('Entregas no existentes');
+    const deliver = this.deliveries.filter((item, index) => item && index < size);
+    if(!deliver)
+      throw boom.notFound('Sin entregas disponibles');
+    return deliver;
   }
 
   findOne(id){
+    if(!this.deliveries)
+      throw boom.notFound('Entregas no existentes');
     const product = this.deliveries.find(item=> item.id_entrega === id);
     if(!product)
       throw boom.notFound('Entrega no encontrada');
@@ -32,6 +39,8 @@ class DeliverieService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_entrega: faker.datatype.uuid(),
       ...data
@@ -44,6 +53,8 @@ class DeliverieService
     const index = this.deliveries.findIndex(item => item.id_entrega === id);
     if(index === -1)
       throw boom.notFound('Entrega no encontrada');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.deliveries[index];
     this.deliveries[index] = {
       ...currentUser,

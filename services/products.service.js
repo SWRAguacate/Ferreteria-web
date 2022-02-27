@@ -23,6 +23,7 @@ class ProductService
       marca: faker.commerce.product(),
       material: faker.commerce.productMaterial(),
       garantia: "1 año de garantia",
+      capacidad_tamanio: "grande",
       categoria: faker.commerce.department()
     });
   }
@@ -30,10 +31,17 @@ class ProductService
   }
 
   find(size){
-    return this.products.filter((item, index) => item && index < size);
+    if(!this.products)
+      throw boom.notFound('Productos no existentes');
+    const product = this.products.filter((item, index) => item && index < size);
+    if(!product)
+      throw boom.notFound('Productos no disponibles');
+    return product;
   }
 
   findOne(id){
+    if(!this.products)
+      throw boom.notFound('Productos no existentes');
     const product = this.products.find(item=> item.id_producto === id);
     if(!product)
       throw boom.notFound('Producto no encontrado');
@@ -41,6 +49,8 @@ class ProductService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_producto: faker.datatype.uuid(),
       ...data
@@ -53,6 +63,8 @@ class ProductService
     const index = this.products.findIndex(item => item.id_producto === id);
     if(index === -1)
       throw boom.notFound('Producto no encontrado');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentProduct = this.products[index];
     this.products[index] = {
       ...currentProduct,

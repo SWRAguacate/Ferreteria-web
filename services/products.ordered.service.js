@@ -23,10 +23,17 @@ class ProductsOrderedService
   }
 
   find(size){
-    return this.productsOrdered.filter((item, index) => item && index < size);
+    if(!this.productsOrdered)
+      throw boom.notFound('Productos pedidos no existentes');
+    const productOrdered = this.productsOrdered.filter((item, index) => item && index < size);
+    if(!productOrdered)
+      throw boom.notFound('Productos pedidos no disponibles');
+    return productOrdered;
   }
 
   findOne(id){
+    if(!this.productsOrdered)
+      throw boom.notFound('Productos pedidos no existentes');
     const product = this.productsOrdered.find(item=> item.id_producto_pedido === id);
     if(!product)
       throw boom.notFound('Producto pedido no encontrado');
@@ -34,6 +41,8 @@ class ProductsOrderedService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_producto_pedido: faker.datatype.uuid(),
       ...data
@@ -46,6 +55,8 @@ class ProductsOrderedService
     const index = this.productsOrdered.findIndex(item => item.id_producto_pedido === id);
     if(index === -1)
       throw boom.notFound('Producto pedido no encontrado');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.productsOrdered[index];
     this.productsOrdered[index] = {
       ...currentUser,

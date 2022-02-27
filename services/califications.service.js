@@ -22,29 +22,41 @@ class CalificationService
   }
 
   find(size){
-    return this.califications.filter((item, index) => item && index < size);
+    if(!this.califications)
+      throw boom.notFound('Calificaciones no existentes');
+    const calification = this.califications.filter((item, index) => item && index < size);
+    if(calification)
+      throw boom.notFound('Sin calificaciones disponibles');
+    return calification;
   }
 
   findOne(id){
-    const product = this.califications.find(item=> item.id_calificacion === id);
-    if(!product)
+    if(!this.califications)
+      throw boom.notFound('Calificaciones no existentes');
+    const calification = this.califications.find(item=> item.id_calificacion === id);
+    if(!calification)
       throw boom.notFound('Calificacion no encontrada');
-    return product;
+    return calification;
   }
 
   create(data){
-    const newProduct = {
+    if(!data)
+      throw boom.notFound('Sin datos por crear');
+    const newCalification = {
       id_calificacion: faker.datatype.uuid(),
       ...data
     }
-    this.califications.push(newProduct);
-    return newProduct;
+    this.califications.push(newCalification);
+    return newCalification;
   }
 
   update(id, changes){
     const index = this.califications.findIndex(item => item.id_calificacion === id);
     if(index === -1)
       throw boom.notFound('Calificacion no encontrada');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
+
     const currentUser = this.califications[index];
     this.califications[index] = {
       ...currentUser,

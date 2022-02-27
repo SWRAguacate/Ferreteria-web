@@ -2,6 +2,8 @@ const express = require('express');
 const ProductsOrderedService = require('../services/products.ordered.service');
 const service = new ProductsOrderedService();
 const router = express.Router();
+const validatorHandler = require('../middlewares/validator.handler');
+const { createProductOrderedDto, updateProductOrderedDto, getIdProductOrderedDto } = require('../middlewares/dtos/product.ordered.dto');
 
 // SELECT
 router.get('/', (req, res)=> {
@@ -15,7 +17,7 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdProductOrderedDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const productoPedido = service.findOne(id);
@@ -30,7 +32,7 @@ router.get('/:id', (req, res, next)=> {
 });
 
 //CREATE
-router.post('/', (req, res, next)=> {
+router.post('/', validatorHandler(createProductOrderedDto, 'body'), (req, res, next)=> {
   try {
     const body = req.body;
     const productoPedido = service.create(body);
@@ -45,7 +47,7 @@ router.post('/', (req, res, next)=> {
 });
 
 //UPDATE
-router.patch('/:id', (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdProductOrderedDto, 'params'), validatorHandler(updateProductOrderedDto, 'body'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
@@ -64,7 +66,7 @@ router.patch('/:id', (req, res, next)=> {
 });
 
 //DELETE
-router.delete('/:id', (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdProductOrderedDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const productoPedido = service.delete(id);

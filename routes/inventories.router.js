@@ -2,6 +2,8 @@ const express = require('express');
 const InventorieService = require('../services/inventories.service');
 const service = new InventorieService();
 const router = express.Router();
+const validatorHandler = require('../middlewares/validator.handler');
+const { createInventoryDto, updateInventoryDto, getIdInventoryDto } = require('../middlewares/dtos/inventory.dto');
 
 // SELECT
 router.get('/', (req, res)=> {
@@ -15,7 +17,7 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdInventoryDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const inventario = service.findOne(id);
@@ -30,7 +32,7 @@ router.get('/:id', (req, res, next)=> {
 });
 
 //CREATE
-router.post('/', (req, res, next)=> {
+router.post('/', validatorHandler(createInventoryDto, 'body'), (req, res, next)=> {
   try {
     const body = req.body;
     const inventario = service.create(body);
@@ -45,7 +47,7 @@ router.post('/', (req, res, next)=> {
 });
 
 //UPDATE
-router.patch('/:id', (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdInventoryDto, 'params'), validatorHandler(updateInventoryDto, 'body'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
@@ -64,7 +66,7 @@ router.patch('/:id', (req, res, next)=> {
 });
 
 //DELETE
-router.delete('/:id', (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdInventoryDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const inventario = service.delete(id);

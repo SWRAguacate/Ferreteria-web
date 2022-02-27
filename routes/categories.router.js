@@ -2,6 +2,8 @@ const express = require('express');
 const CategorieService = require('../services/categories.service');
 const service = new CategorieService();
 const router = express.Router();
+const validatorHandler = require('../middlewares/validator.handler');
+const { createCategoryDto, updateCategoryDto, getIdCategoryDto } = require('../middlewares/dtos/category.dto');
 
 // SELECT
 router.get('/', (req, res)=> {
@@ -15,7 +17,7 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdCategoryDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const categoria = service.findOne(id);
@@ -30,7 +32,7 @@ router.get('/:id', (req, res, next)=> {
 });
 
 //CREATE
-router.post('/', (req, res, next)=> {
+router.post('/', validatorHandler(createCategoryDto, 'body'), (req, res, next)=> {
   try {
     const body = req.body;
     const categoria = service.create(body);
@@ -45,7 +47,7 @@ router.post('/', (req, res, next)=> {
 });
 
 //UPDATE
-router.patch('/:id', (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdCategoryDto, 'params'), validatorHandler(updateCategoryDto, 'body'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
@@ -64,7 +66,7 @@ router.patch('/:id', (req, res, next)=> {
 });
 
 //DELETE
-router.delete('/:id', (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdCategoryDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const categoria = service.delete(id);

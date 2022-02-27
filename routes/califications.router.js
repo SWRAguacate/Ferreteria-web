@@ -2,6 +2,8 @@ const express = require('express');
 const CalificationService = require('../services/califications.service');
 const service = new CalificationService();
 const router = express.Router();
+const validatorHandler = require('../middlewares/validator.handler');
+const { createCalificationDto, updateCalificationDto, getIdCalificationDto } = require('../middlewares/dtos/calification.dto');
 
 // SELECT
 router.get('/', (req, res)=> {
@@ -15,7 +17,7 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdCalificationDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const calificacion = service.findOne(id);
@@ -30,7 +32,7 @@ router.get('/:id', (req, res, next)=> {
 });
 
 //CREATE
-router.post('/', (req, res, next)=> {
+router.post('/', validatorHandler(createCalificationDto, 'body'), (req, res, next)=> {
   try {
     const body = req.body;
     const calificacion = service.create(body);
@@ -45,7 +47,7 @@ router.post('/', (req, res, next)=> {
 });
 
 //UPDATE
-router.patch('/:id', (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdCalificationDto, 'params'), validatorHandler(updateCalificationDto, 'body'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
@@ -64,7 +66,7 @@ router.patch('/:id', (req, res, next)=> {
 });
 
 //DELETE
-router.delete('/:id', (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdCalificationDto, 'params'), (req, res, next)=> {
     try {
       const { id } = req.params;
       const calificacion = service.delete(id);

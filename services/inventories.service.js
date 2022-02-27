@@ -21,10 +21,17 @@ class InventorieService
   }
 
   find(size){
-    return this.inventories.filter((item, index) => item && index < size);
+    if(!this.inventories)
+      throw boom.notFound('Inventarios no existentes');
+    const inventory = this.inventories.filter((item, index) => item && index < size);
+    if(!inventory)
+      throw boom.notFound('Inventarios no disponibles');
+    return inventory;
   }
 
   findOne(id){
+    if(!this.inventories)
+      throw boom.notFound('Inventarios no existentes');
     const product = this.inventories.find(item=> item.id_inventario === id);
     if(!product)
       throw boom.notFound('Inventario no encontrado');
@@ -32,6 +39,8 @@ class InventorieService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_inventario: faker.datatype.uuid(),
       ...data
@@ -44,6 +53,8 @@ class InventorieService
     const index = this.inventories.findIndex(item => item.id_inventario === id);
     if(index === -1)
       throw boom.notFound('Inventario no encontrado');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.inventories[index];
     this.inventories[index] = {
       ...currentUser,

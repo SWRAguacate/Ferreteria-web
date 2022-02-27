@@ -23,10 +23,17 @@ class CartService
   }
 
   find(size){
-    return this.carts.filter((item, index) => item && index < size);
+    if(!this.carts)
+      throw boom.notFound('Carritos no existentes');
+    const cart = this.carts.filter((item, index) => item && index < size);
+    if(!cart)
+      throw boom.notFound('Sin carritos');
+    return cart
   }
 
   findOne(id){
+    if(!this.carts)
+      throw boom.notFound('Carritos no existentes');
     const product = this.carts.find(item=> item.id_carrito === id);
     if(!product)
       throw boom.notFound('Carrito no encontrado');
@@ -34,6 +41,8 @@ class CartService
   }
 
   create(data){
+    if(!data)
+      throw boom.notFound('Data vacía');
     const newProduct = {
       id_carrito: faker.datatype.uuid(),
       ...data
@@ -46,6 +55,8 @@ class CartService
     const index = this.carts.findIndex(item => item.id_carrito === id);
     if(index === -1)
       throw boom.notFound('Carrito no encontrado');
+    if(!changes)
+      throw boom.notFound('Sin datos por cambiar');
     const currentUser = this.carts[index];
     this.carts[index] = {
       ...currentUser,
