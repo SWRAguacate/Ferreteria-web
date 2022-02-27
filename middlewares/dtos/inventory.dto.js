@@ -8,13 +8,13 @@ const numberValidation = Joi.number().integer().min(10);
 //CREACIÓN
 const createInventoryDto = Joi.object({
   id_producto: idValidation.required(),
-  fecha: numberValidation.required()
+  cantidad: numberValidation.required()
 });
 
 //ACTUALIZACIÓN
 const updateInventoryDto = Joi.object({
   id_producto: idValidation,
-  fecha: numberValidation
+  cantidad: numberValidation
 });
 
 //CUANDO REQUERIMOS UN ID

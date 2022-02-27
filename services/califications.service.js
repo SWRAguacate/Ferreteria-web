@@ -25,7 +25,7 @@ class CalificationService
     if(!this.califications)
       throw boom.notFound('Calificaciones no existentes');
     const calification = this.califications.filter((item, index) => item && index < size);
-    if(calification)
+    if(!calification)
       throw boom.notFound('Sin calificaciones disponibles');
     return calification;
   }

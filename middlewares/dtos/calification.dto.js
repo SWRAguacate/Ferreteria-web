@@ -14,7 +14,7 @@ const createCalificationDto = Joi.object({
 });
 
 //ACTUALIZACIÓN
-const updateCalificationtDto = Joi.object({
+const updateCalificationDto = Joi.object({
   id_producto: idValidation,
   id_usuario: idUserValidation,
   like_dislike: likeDislikeValidation
@@ -25,4 +25,4 @@ const getIdCalificationDto = Joi.object({
   id: idValidation.required(),
 });
 
-module.exports = { createCalificationDto, updateCalificationtDto, getIdCalificationDto };
+module.exports = { createCalificationDto, updateCalificationDto, getIdCalificationDto };
