@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Menu} from './components/header'
 import {Pie} from './components/footer/Footer'
-import {LeftSide} from "./components/login/LeftSide"
-import {RightSide} from "./components/login/RightSide"
+import {LeftSide} from "./components/register/LeftSide"
+import {RightSide} from "./components/register/RightSide"
 import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 ReactDOM.render(
   <div>
@@ -27,5 +28,6 @@ ReactDOM.render(
     <br></br>
     <Pie></Pie>
   </div>
+
 
   ,document.getElementById('app'));
