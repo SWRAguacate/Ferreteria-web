@@ -1,0 +1,17 @@
+.main-footer{
+  color: white;
+  background-color:#ff6600 ;
+  padding-top: 3em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.low-footer{
+  color: white;
+  background-color: #af3703;
+
+  bottom: 0;
+  width: 100%;
+  vertical-align: middle;
+}
