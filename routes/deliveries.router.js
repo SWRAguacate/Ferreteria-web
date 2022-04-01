@@ -6,9 +6,9 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createDeliverDto, updateDeliverDto, getIdDeliverDto } = require('../middlewares/dtos/deliver.dto');
 
 // SELECT
-router.get('/', (req, res)=> {
+router.get('/', async (req, res)=> {
   const { size } = req.query;
-    const entrega = service.find(size || 10);
+    const entrega = await service.findDB(size || 10);
     res.json({
       'success': true,
       'message': 'Entregas encontradas',
@@ -17,10 +17,10 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', validatorHandler(getIdDeliverDto, 'params'), (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdDeliverDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const entrega = service.findOne(id);
+      const entrega = await service.findOneDB(id);
      res.json({
           'success': true,
           'message': 'Entrega encontrada',
@@ -32,10 +32,10 @@ router.get('/:id', validatorHandler(getIdDeliverDto, 'params'), (req, res, next)
 });
 
 //CREATE
-router.post('/', validatorHandler(createDeliverDto, 'body'), (req, res, next)=> {
+router.post('/', validatorHandler(createDeliverDto, 'body'), async (req, res, next)=> {
   try {
     const body = req.body;
-    const entrega = service.create(body);
+    const entrega = await service.createDB(body);
     res.json({
         'success': true,
        'message': 'Entrega creada',
@@ -47,11 +47,11 @@ router.post('/', validatorHandler(createDeliverDto, 'body'), (req, res, next)=> 
 });
 
 //UPDATE
-router.patch('/:id', validatorHandler(getIdDeliverDto, 'params'), validatorHandler(updateDeliverDto, 'body'), (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdDeliverDto, 'params'), validatorHandler(updateDeliverDto, 'body'), async (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
-      const {old, changed} = service.update(id, body);
+      const {old, changed} = await service.updateDB(id, body);
       res.json({
           'success': true,
           'message': 'Entrega actualizada',
@@ -66,10 +66,10 @@ router.patch('/:id', validatorHandler(getIdDeliverDto, 'params'), validatorHandl
 });
 
 //DELETE
-router.delete('/:id', validatorHandler(getIdDeliverDto, 'params'), (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdDeliverDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const entrega = service.delete(id);
+      const entrega = await service.deleteDB(id);
       res.json({
           'success': true,
           'message': 'Entrega eliminada',

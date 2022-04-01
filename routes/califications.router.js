@@ -6,9 +6,9 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createCalificationDto, updateCalificationDto, getIdCalificationDto } = require('../middlewares/dtos/calification.dto');
 
 // SELECT
-router.get('/', (req, res)=> {
+router.get('/', async (req, res)=> {
   const { size } = req.query;
-    const calificacion = service.find(size || 10);
+    const calificacion = await service.findDB(size || 10);
     res.json({
       'success': true,
       'message': 'Calificaciones encontradas',
@@ -17,10 +17,10 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', validatorHandler(getIdCalificationDto, 'params'), (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdCalificationDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const calificacion = service.findOne(id);
+      const calificacion = await service.findOneDB(id);
      res.json({
           'success': true,
           'message': 'Calificacion encontrada',
@@ -32,10 +32,10 @@ router.get('/:id', validatorHandler(getIdCalificationDto, 'params'), (req, res, 
 });
 
 //CREATE
-router.post('/', validatorHandler(createCalificationDto, 'body'), (req, res, next)=> {
+router.post('/', validatorHandler(createCalificationDto, 'body'), async (req, res, next)=> {
   try {
     const body = req.body;
-    const calificacion = service.create(body);
+    const calificacion = await service.createDB(body);
     res.json({
         'success': true,
        'message': 'Calificacion creada',
@@ -47,11 +47,11 @@ router.post('/', validatorHandler(createCalificationDto, 'body'), (req, res, nex
 });
 
 //UPDATE
-router.patch('/:id', validatorHandler(getIdCalificationDto, 'params'), validatorHandler(updateCalificationDto, 'body'), (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdCalificationDto, 'params'), validatorHandler(updateCalificationDto, 'body'), async (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
-      const {old, changed} = service.update(id, body);
+      const {old, changed} = await service.updateDB(id, body);
       res.json({
           'success': true,
           'message': 'Calificacion actualizada',
@@ -66,10 +66,10 @@ router.patch('/:id', validatorHandler(getIdCalificationDto, 'params'), validator
 });
 
 //DELETE
-router.delete('/:id', validatorHandler(getIdCalificationDto, 'params'), (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdCalificationDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const calificacion = service.delete(id);
+      const calificacion = await service.deleteDB(id);
       res.json({
           'success': true,
           'message': 'Calificacion eliminada',

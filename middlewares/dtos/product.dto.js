@@ -1,10 +1,11 @@
 const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
-const idValidation = Joi.string().uuid();
+const idValidation = Joi.string();
 const nameValidation = Joi.string().min(3).max(15);
 const priceValidation = Joi.number().integer().min(10);
 const stringValidation = Joi.string();
+const categoriesValidation = Joi.array();
 
 //CASOS DE USO
 //CREACIÓN
@@ -20,7 +21,7 @@ const createProductDto = Joi.object({
   material: stringValidation.required(),
   garantia: stringValidation.required(),
   capacidad_tamanio: stringValidation.required(),
-  categoria: stringValidation.required()
+  categoria: categoriesValidation.required()
 });
 
 //ACTUALIZACIÓN
@@ -36,7 +37,7 @@ const updateProductDto = Joi.object({
   material: stringValidation,
   garantia: stringValidation,
   capacidad_tamanio: stringValidation,
-  categoria: stringValidation
+  categoria: categoriesValidation
 });
 
 //CUANDO REQUERIMOS UN ID

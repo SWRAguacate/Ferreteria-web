@@ -6,9 +6,9 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createExpirationDto, updateExpirationDto, getIdExpirationDto } = require('../middlewares/dtos/expiration.dto');
 
 // SELECT
-router.get('/', (req, res)=> {
+router.get('/', async (req, res)=> {
   const { size } = req.query;
-    const expiracion = service.find(size || 10);
+    const expiracion = await service.findDB(size || 10);
     res.json({
       'success': true,
       'message': 'Expiraciones encontradas',
@@ -17,10 +17,10 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', validatorHandler(getIdExpirationDto, 'params'), (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdExpirationDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const expiracion = service.findOne(id);
+      const expiracion = await service.findOneDB(id);
      res.json({
           'success': true,
           'message': 'Expiracion encontrada',
@@ -32,10 +32,10 @@ router.get('/:id', validatorHandler(getIdExpirationDto, 'params'), (req, res, ne
 });
 
 //CREATE
-router.post('/', validatorHandler(createExpirationDto, 'body'), (req, res, next)=> {
+router.post('/', validatorHandler(createExpirationDto, 'body'), async (req, res, next)=> {
   try {
     const body = req.body;
-    const expiracion = service.create(body);
+    const expiracion = await service.createDB(body);
     res.json({
         'success': true,
        'message': 'Expiracion creada',
@@ -47,11 +47,11 @@ router.post('/', validatorHandler(createExpirationDto, 'body'), (req, res, next)
 });
 
 //UPDATE
-router.patch('/:id', validatorHandler(getIdExpirationDto, 'params'), validatorHandler(updateExpirationDto, 'body'), (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdExpirationDto, 'params'), validatorHandler(updateExpirationDto, 'body'), async (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
-      const {old, changed} = service.update(id, body);
+      const {old, changed} = await service.updateDB(id, body);
       res.json({
           'success': true,
           'message': 'Expiracion actualizada',
@@ -66,10 +66,10 @@ router.patch('/:id', validatorHandler(getIdExpirationDto, 'params'), validatorHa
 });
 
 //DELETE
-router.delete('/:id', validatorHandler(getIdExpirationDto, 'params'), (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdExpirationDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const expiracion = service.delete(id);
+      const expiracion = await service.deleteDB(id);
       res.json({
           'success': true,
           'message': 'Expiracion eliminada',

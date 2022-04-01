@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
-const idValidation = Joi.string().uuid();
+const idValidation = Joi.string();
 const numberValidation = Joi.number().integer().min(10);
 
 //CASOS DE USO

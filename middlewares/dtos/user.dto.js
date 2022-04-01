@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
-const idValidation = Joi.string().uuid();
+const idValidation = Joi.string();
 const nameValidation = Joi.string().min(10).max(45);
 const mailValidation = Joi.string().email();
 const passValidation = Joi.string();

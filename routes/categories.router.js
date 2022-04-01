@@ -6,9 +6,9 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createCategoryDto, updateCategoryDto, getIdCategoryDto } = require('../middlewares/dtos/category.dto');
 
 // SELECT
-router.get('/', (req, res)=> {
+router.get('/', async (req, res)=> {
   const { size } = req.query;
-    const categoria = service.find(size || 10);
+    const categoria = await service.findDB(size || 10);
     res.json({
       'success': true,
       'message': 'Categorias encontradas',
@@ -17,10 +17,10 @@ router.get('/', (req, res)=> {
 });
 
 //SELECT
-router.get('/:id', validatorHandler(getIdCategoryDto, 'params'), (req, res, next)=> {
+router.get('/:id', validatorHandler(getIdCategoryDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const categoria = service.findOne(id);
+      const categoria = await service.findOneDB(id);
      res.json({
           'success': true,
           'message': 'Categoria encontrada',
@@ -32,10 +32,10 @@ router.get('/:id', validatorHandler(getIdCategoryDto, 'params'), (req, res, next
 });
 
 //CREATE
-router.post('/', validatorHandler(createCategoryDto, 'body'), (req, res, next)=> {
+router.post('/', validatorHandler(createCategoryDto, 'body'), async (req, res, next)=> {
   try {
     const body = req.body;
-    const categoria = service.create(body);
+    const categoria = await service.createDB(body);
     res.json({
         'success': true,
        'message': 'Categoria creada',
@@ -47,11 +47,11 @@ router.post('/', validatorHandler(createCategoryDto, 'body'), (req, res, next)=>
 });
 
 //UPDATE
-router.patch('/:id', validatorHandler(getIdCategoryDto, 'params'), validatorHandler(updateCategoryDto, 'body'), (req, res, next)=> {
+router.patch('/:id', validatorHandler(getIdCategoryDto, 'params'), validatorHandler(updateCategoryDto, 'body'), async (req, res, next)=> {
     try {
       const { id } = req.params;
       const body = req.body;
-      const {old, changed} = service.update(id, body);
+      const {old, changed} = await service.updateDB(id, body);
       res.json({
           'success': true,
           'message': 'Categoria actualizada',
@@ -66,10 +66,10 @@ router.patch('/:id', validatorHandler(getIdCategoryDto, 'params'), validatorHand
 });
 
 //DELETE
-router.delete('/:id', validatorHandler(getIdCategoryDto, 'params'), (req, res, next)=> {
+router.delete('/:id', validatorHandler(getIdCategoryDto, 'params'), async (req, res, next)=> {
     try {
       const { id } = req.params;
-      const categoria = service.delete(id);
+      const categoria = await service.deleteDB(id);
       res.json({
           'success': true,
           'message': 'Categoria eliminada',
