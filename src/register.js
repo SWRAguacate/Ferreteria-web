@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Menu} from './components/header'
+import { Menu } from './components/header/Header';
 import {Pie} from './components/footer/Footer'
 import {LeftSide} from "./components/register/LeftSide"
 import {RightSide} from "./components/register/RightSide"
