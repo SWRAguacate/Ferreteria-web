@@ -1,0 +1,9 @@
+#TablaIventario th{
+  width: 130px;
+  overflow: auto;
+}
+
+input{
+  background-color: transparent;
+  outline: none;
+}
