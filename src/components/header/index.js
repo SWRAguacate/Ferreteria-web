@@ -1,32 +1,27 @@
-import React from 'react';
-import { NavLink } from 'reactstrap';
-
-
-export const Menu = () => (
-
-  <>
-    <Nav>
-      <NavLink to="/">
-        <h1>Logo</h1>
-      </NavLink>
-      <Bars/>
-      <NavMenu>
-        <NavLink to="/about" activeStyle>
-          About
-        </NavLink>
-        <NavLink to="/services" activeStyle>
-          Services
-        </NavLink>
-        <NavLink to="/contact-us" activeStyle>
-          Contact Us
-        </NavLink>
-        <NavLink to="/sign-up" activeStyle>
-          Sign Up
-        </NavLink>
-        <NavBtN>
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-        </NavBtN>
-      </NavMenu>
-    </Nav>
-  </>
-);
+/*export const Menu = () => (
+  <div>
+    <Navbar color="dark" dark expand="md" light>
+      <NavbarBrand href="/">
+        <img src={logo} thumbnail style={{ width: '50px' }}></img>
+      </NavbarBrand>
+      <NavbarToggler onClick={function noRefCheck() {}} />
+      <Collapse navbar>
+        <Nav className="me-auto" navbar>
+          <NavItem>
+            <NavLink href="/components/">Inicio</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/Perfil/">Perfil</NavLink>
+          </NavItem>
+        </Nav>
+        <NavbarText>
+          <div className='row'>
+            <div className="col-sm-6"><Input/></div>
+            <div className="col-sm-5"><Button color="primary">Buscar</Button></div>
+            <div className='col-sm-1'></div>
+          </div>
+        </NavbarText>
+      </Collapse>
+    </Navbar>
+  </div>
+);*/

@@ -8,8 +8,16 @@ import {
   CarouselControl,
 } from 'reactstrap';
 
-export const Deals = () => (
-  <div>
+class Deals extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      someKey: 'someValue'
+    };
+  }
+
+  render() {
+    return   <div>
     <UncontrolledCarousel
       items={[
         {
@@ -40,4 +48,14 @@ export const Deals = () => (
     ></UncontrolledCarousel>
     <br></br>
   </div>
-);
+  }
+
+  componentDidMount() {
+    this.setState({
+      someKey: 'otherValue'
+    });
+  }
+}
+
+export default Deals;
+
