@@ -1,17 +1,18 @@
 import React from 'react';
-import './footer.css';
+import "./footer.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-export const Pie = () => (
-  <div>
+class PieFooter extends React.PureComponent{
+  render(){
+    return   <div>
     <div className="main-footer">
       <div className="container">
         <div className="row">
           <div className="col">
             <h4>Desarrolladores:</h4>
             <hr></hr>
-            <ul className="list-unstyled">
+            <ul className='list-unstyled'>
               <li>Fernando Moncayo</li>
               <li>Oscar Eduardo</li>
               <li>Valeria Osiris</li>
@@ -21,16 +22,8 @@ export const Pie = () => (
           <div className="col">
             <h4>Repositorio:</h4>
             <hr></hr>
-            <ul className="list-unlysted">
-              <li>
-                <a
-                  class="mt-0 text-white"
-                  href="https://github.com/SWRAguacate/Ferreteria-web"
-                  target="_blank"
-                >
-                  Repositorio del proyecto
-                </a>
-              </li>
+            <ul className='list-unlysted'>
+              <li><a class="mt-0 text-white" href="https://github.com/SWRAguacate/Ferreteria-web" target="_blank" >Repositorio del proyecto</a></li>
             </ul>
           </div>
           <div className="col">
@@ -53,15 +46,20 @@ export const Pie = () => (
           </div>
         </div>
         <hr></hr>
-        <div className="row">
-          <div className="terms">
-            <p className="col-sm">
-              &copy;{new Date().getFullYear()} NOMBRE | DERECHOS RESERVADOS |
-              TERMINOS DE SERVICIO
-            </p>
-          </div>
+        <div className='row'>
+        <div className='terms' >
+        <p className='col-sm'>
+          &copy;{new Date().getFullYear()} NOMBRE | DERECHOS RESERVADOS | TERMINOS DE SERVICIO
+        </p>
         </div>
       </div>
+
+      </div>
+
     </div>
-  </div>
-);
+
+    </div>;
+  }
+}
+
+export default PieFooter;

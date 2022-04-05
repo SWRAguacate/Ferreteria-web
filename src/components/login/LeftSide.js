@@ -2,8 +2,16 @@ import React from 'react';
 import './Leftside.css';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
-export const LeftSide = () => (
-  <div>
+class LeftSide extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      someKey: 'someValue'
+    };
+  }
+
+  render() {
+    return   <div>
     <br></br>
 
     <Form style={{ width: '80%', marginLeft: '10%', marginTop: '10%' }}>
@@ -39,4 +47,15 @@ export const LeftSide = () => (
       <br></br>
     </Form>
   </div>
-);
+  }
+
+  componentDidMount() {
+    this.setState({
+      someKey: 'otherValue'
+    });
+  }
+}
+
+export default LeftSide;
+
+
