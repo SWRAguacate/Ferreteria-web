@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MenuNav from './components/header/Header';
-import PieFooter from './components/footer/Footer'
-import LeftSide from "./components/register/LeftSide"
-import RightSide from "./components/register/RightSide"
-import 'bootstrap/dist/css/bootstrap.min.css'
+import PieFooter from './components/footer/Footer';
+import LeftSide from "./components/register/LeftSide";
+import RightSide from "./components/register/RightSide";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(

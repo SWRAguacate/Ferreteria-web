@@ -12,6 +12,7 @@ ReactDOM.render(
     <br></br>
     <br></br>
     <NavSp></NavSp>
+    <Pedidos></Pedidos>
 
     <br></br>
     <br></br>

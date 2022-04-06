@@ -61,7 +61,8 @@
     "express": "^4.17.3",
     "joi": "^17.6.0",
     "mongoose": "^6.2.7",
-    "react-bootstrap": "^2.2.2"
+    "react-bootstrap": "^2.2.2",
+    "react-router-dom": "^6.3.0"
   },
   "eslintConfig": {
     "extends": [
