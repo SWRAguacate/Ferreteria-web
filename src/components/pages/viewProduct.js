@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer';
-import Results from './../search/results';
+import {ViewProductLeft} from './../viewproduct/ViewproductLefta';
 
 class ViewProduct extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ class ViewProduct extends React.Component {
     return (<div>
       <MenuNav logged={2}></MenuNav>
       <br></br>
-      <Results></Results>
+      <ViewProductLeft></ViewProductLeft>
       <br></br>
       <br></br>
       <br></br>

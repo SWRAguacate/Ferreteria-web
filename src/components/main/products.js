@@ -1,7 +1,7 @@
 import React from 'react';
 import './products.css';
 import productImage from './img/placeholder.jpg';
-import test from './img/f.png';
+
 import ProductA from './productA';
 import ProductO from './productO';
 import {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuSp } from './../headersp/IndexHeaderSp';
 import { NavSp } from './../navsp/IndexNavSp';
+import {Productos} from './../productos/Productos'
 
 class Products extends React.Component {
   constructor() {

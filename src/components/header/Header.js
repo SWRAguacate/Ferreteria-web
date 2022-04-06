@@ -16,6 +16,7 @@ import {
   Button,
 } from 'reactstrap';
 import logo from './img/ferreteria.png';
+import { Link } from 'react-router-dom';
 
 class MenuNav extends React.Component {
   constructor(props) {
@@ -36,13 +37,24 @@ class MenuNav extends React.Component {
           <Collapse navbar>
             <Nav className="me-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Inicio</NavLink>
+                <Link to={'/'} className="nav-link">
+                  Inicio
+                </Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/Perfil/">Iniciar sesion</NavLink>
+                <Link to={'/login'} className="nav-link">
+                  Iniciar sesion
+                </Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/Carrito/">Carrito</NavLink>
+                <Link to={'/cart'} className="nav-link">
+                  Carrito
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to={'/indexSP'} className="nav-link">
+                  Inicio SP
+                </Link>
               </NavItem>
             </Nav>
             <NavbarText>
@@ -51,7 +63,11 @@ class MenuNav extends React.Component {
                   <Input />
                 </div>
                 <div className="col-sm-5">
-                  <Button color="primary">Buscar</Button>
+                  <Button color="primary">
+                    <Link to={'/search'} className="nav-link">
+                      Buscar
+                    </Link>
+                  </Button>
                 </div>
                 <div className="col-sm-1"></div>
               </div>

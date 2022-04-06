@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import ProductA from './productA';
 import cartImage from './img/placeholder.jpg';
+import { Link } from 'react-router-dom';
 class LeftSide extends React.Component {
   constructor() {
     super();
@@ -29,7 +30,10 @@ class LeftSide extends React.Component {
             <h2>Carrito de compras</h2>
           </div>
           <div className="col-sm-3">
-            <Button color="warning">Seguir comprando</Button>
+          <Link to="/">
+          <Button color="warning">Seguir comprando</Button>
+            </Link>
+
           </div>
         </div>
 

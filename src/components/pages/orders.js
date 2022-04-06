@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuSp } from './../headersp/IndexHeaderSp';
 import { NavSp } from './../navsp/IndexNavSp';
-import { Orders } from './../orders/Orders';
+import { Pedidos } from './../orders/Orders';
 
 class Orders extends React.Component {
   constructor() {
@@ -17,7 +17,7 @@ class Orders extends React.Component {
       <br></br>
       <br></br>
       <NavSp></NavSp>
-      <Orders></Orders>
+      <Pedidos></Pedidos>
 
       <br></br>
       <br></br>

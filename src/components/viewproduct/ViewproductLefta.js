@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import licuadora from './licuadora.jpg';
 
-export const ViewProduct = () => (
+export const ViewProductLeft = () => (
   <Container>
     <Row xs="3" style={{ height: '50%' }}>
       <Col className="block-example border border-0 border-dark container col-sm-5">

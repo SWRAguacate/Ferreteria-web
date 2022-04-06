@@ -14,6 +14,7 @@ import {
   CardGroup,
   CardImg
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class ProductA extends React.Component {
@@ -54,7 +55,9 @@ class ProductA extends React.Component {
               </div>
               <div className="row">
                 <div className="col-sm-5">
-                  <Button color="warning">Ver producto</Button>
+                <Link to="/viewProduct">
+          <Button color="warning">Ver producto</Button>
+            </Link>
                 </div>
                 <div className="col-sm-1"></div>
                 <div className="col-sm-5">

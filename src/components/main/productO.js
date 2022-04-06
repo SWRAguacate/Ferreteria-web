@@ -14,6 +14,7 @@ import {
   CardGroup,
   CardImg,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class ProductO extends React.Component {
   constructor(props) {
@@ -39,7 +40,10 @@ class ProductO extends React.Component {
           <CardText>
             {this.state.description}
           </CardText>
+          <Link to="/viewProduct">
           <Button color="warning">Ver producto</Button>
+            </Link>
+
         </CardBody>
       </Card>
     );

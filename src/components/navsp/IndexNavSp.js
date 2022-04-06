@@ -1,28 +1,24 @@
 import React from 'react';
 import { NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export const NavSp = () => (
   <>
     <ul class="nav nav-tabs nav-fill">
       <li class="nav-item">
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="/src/index.js"
-          style={{ color: 'orangered', width: '100%' }}
-        >
-          Pedidos
-        </a>
+      <Link to={'/orders'} className="nav-link">
+                  Pedidos
+                </Link>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/src/index.js" style={{ color: 'orangered' }}>
-          Productos
-        </a>
+                <Link to={'/products'} className="nav-link">
+                  Productos
+                </Link>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/src/index.js" style={{ color: 'orangered' }}>
-          Inventario
-        </a>
+      <Link to={'/inventory'} className="nav-link">
+                  Inventario
+                </Link>
       </li>
     </ul>
   </>

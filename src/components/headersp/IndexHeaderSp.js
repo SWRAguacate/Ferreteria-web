@@ -1,5 +1,6 @@
 import React from 'react';
 import { nav, button, ul, li, div, span } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export const MenuSp = () => (
   <>
@@ -29,14 +30,14 @@ export const MenuSp = () => (
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#" style={{ color: 'white' }}>
-                Mi cuenta
-              </a>
+            <Link to={'/'} className="nav-link" >
+                  Inicio
+                </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" style={{ color: 'white' }}>
-                Salir
-              </a>
+            <Link to={'/login'} className="nav-link" >
+                  Iniciar sesion
+                </Link>
             </li>
           </ul>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Leftside.css';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 class LeftSide extends React.Component {
   constructor() {
     super();
@@ -47,14 +48,19 @@ class LeftSide extends React.Component {
       </FormGroup>
       <br></br>
       <div class="d-grid">
-        <Button type="submit" color="success">
+      <Link to="/">
+      <Button type="submit" color="success">
           Registrar
         </Button>
+            </Link>
+
       </div>
       <br></br>
       <div class="my-3 text-white">
         <span>
-          ¿Ya tienes una cuenta? <a href="../src/register.html">Inicia sesion aquí</a>
+          ¿Ya tienes una cuenta? <Link to={'/login'} className="nav-link">
+                  Inicia sesion
+                </Link>
         </span>
       </div>
 
