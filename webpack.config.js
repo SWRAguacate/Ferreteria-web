@@ -8,7 +8,7 @@ module.exports = {
   },
   plugins:[
     new HtmlWebPackPlugin({
-      template: 'src/index.js'
+      template: 'src/index.html'
     })
   ],
   module:{
