@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
+  entry: ['babel-polyfill', './test.js'],
   mode: isProd ? 'production' : 'development',
   output: {
     filename: 'app.bundle.js'

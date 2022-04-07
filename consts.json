@@ -1,3 +1,3 @@
 {
-  "DBCONNECTION": "mongodb+srv://USER:PASSWORD@CLUSTERNAME.wlrfb.mongodb.net/DBNAME?retryWrites=true&w=majority"
+  "DBCONNECTION": "mongodb+srv://FerchoSMT:f3redypapa@mycluster.wlrfb.mongodb.net/ferreteria-marroquin?retryWrites=true&w=majority"
 }

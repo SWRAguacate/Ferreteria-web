@@ -17,21 +17,47 @@ class ProductA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.title,
-      description: this.props.description,
-      quantity: this.props.quantity,
-      productId: this.props.productId,
+      id:"",
+      status:false,
+      type:TYPESHOW,
+      prevtype:TYPESHOW,
+      data:{},
       someKey: 'someValue'
     };
   }
 
-  removeProduct(){
-    const element = document.getElementById("1");
-    //element.remove();
+  async componentDidMount() {
+    if(this.props.data){
+      this.setState({
+        title: this.props.title,
+        description: this.props.description,
+        quantity: this.props.quantity,
+        productId: this.props.productId,
+        id: this.props.id,
+        status:true,
+        data: this.props.data
+      });
+      this.forceUpdate();
+    }
+    else if(this.props.id) {
+        const response = await fetch(
+          `http://localhost:3000/api/v1/products/${this.pros.id}`
+        );
+        const respJson = await response.json();
+        if(respJson.success){
+          this.setState({
+            status:true,
+            data: respJson.Data
+          });
+        this.forceUpdate();
+        }
+    }
+
   }
 
   render() {
-    return (
+    const isShow = this.state.type === TYPESHOW;
+    return this.state.status === true(
       <Card color="light">
         <CardBody>
           <div className="row">
@@ -65,11 +91,11 @@ class ProductA extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
+  removeProduct(){
+    console.log("Eliminar producto")
   }
+
+
 }
 
 export default ProductA;
