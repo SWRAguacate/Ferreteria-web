@@ -37,9 +37,9 @@ class LeftSide extends React.Component {
           </div>
         </div>
 
-        <ProductA id="1" title="Producto" description="Descripcion" quantity="1" productId="1"></ProductA>
-        <ProductA id="2" title="Producto" description="Descripcion" quantity="1" productId="2"></ProductA>
-        <ProductA id="3" title="Producto" description="Descripcion" quantity="1" productId="3"></ProductA>
+        <ProductA id={"1"} title="Producto" description="Descripcion" quantity="1" productId="1" callbackM={this.cllbckProductMessage}></ProductA>
+        <ProductA id={"2"} title="Producto" description="Descripcion" quantity="1" productId="2" callbackM={this.cllbckProductMessage}></ProductA>
+        <ProductA id={"3"} title="Producto" description="Descripcion" quantity="1" productId="3" callbackM={this.cllbckProductMessage}></ProductA>
       </div>
     );
   }

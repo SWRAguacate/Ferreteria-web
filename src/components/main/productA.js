@@ -15,19 +15,51 @@ import {
   CardImg,
 } from 'reactstrap';
 
+const TYPESHOW = 'show';
+const TYPEEDIT = 'edit';
+const TYPEDELETE = 'delete';
+
 class ProductA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      someKey: 'someValue',
-      title: this.props.title,
-      description: this.props.description,
-      productId: this.props.productId
+      id: '',
+      status: false,
+      type: TYPESHOW,
+      prevtype: TYPESHOW,
+      data: {},
+      fakeData: null,
     };
   }
 
+  async componentDidMount() {
+    if (this.props.data) {
+      this.setState({
+        status: true,
+        data: this.props.data,
+      });
+      this.forceUpdate();
+    } else {
+      const response = await fetch('url de la api para traer porductos + id');
+    }
+    const respJson = await response.Json();
+    if (respJson.success) {
+      this.setState({
+        status: true,
+        data: respJson.Data,
+      });
+      this.forceUpdate();
+    }
+  }
+
   render() {
-    return (
+
+    const isShow = this.state.type===TYPESHOW;
+
+    const finalData = this.state.fakeData !== null ? this.state.fakeData:this.state.data;
+
+    const {name,description} = finalData;
+    return this.state.status===true?(
       <Card color="light">
         <CardBody>
           <div className="row">
@@ -35,10 +67,8 @@ class ProductA extends React.Component {
               <img src={productImage} thumbnail style={{ width: '100%' }}></img>
             </div>
             <div className="col-sm-6 ">
-              <CardTitle tag="h5">{this.state.title}</CardTitle>
-              <CardText>
-                {this.state.description}
-              </CardText>
+              <CardTitle tag="h5">{name}</CardTitle>
+              <CardText>{description}</CardText>
             </div>
             <div className="col-sm-3 ">
               <div className="row">
@@ -66,13 +96,7 @@ class ProductA extends React.Component {
           </div>
         </CardBody>
       </Card>
-    );
-  }
-
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
+    ):(<div></div>);
   }
 }
 
