@@ -39,8 +39,8 @@ class ProductA extends React.Component {
         data: this.props.data,
       });
       this.forceUpdate();
-    } else {
-      const response = await fetch('url de la api para traer porductos + id');
+    } else if (this.props.id) {
+      const response = await fetch(`http://localhost:3000/api/v1/products/${this.props.id}`);
     }
     const respJson = await response.Json();
     if (respJson.success) {

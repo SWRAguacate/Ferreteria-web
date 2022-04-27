@@ -135,7 +135,7 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-    fetch('ruta para traerte todos los productos')
+    fetch('http://localhost:3000/api/v1/products/')
       .then((response) => response.json())
       .then((respJson) => {
         if (respJson.success) {
@@ -143,6 +143,7 @@ class Products extends React.Component {
             state: true,
             products: respJson.Data,
           });
+          this.forceUpdate();
         }
       });
   }
