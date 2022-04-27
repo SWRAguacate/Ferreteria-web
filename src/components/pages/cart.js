@@ -87,24 +87,24 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.data){
-      this.setState({
-       status:true,
-       data:this.props.data,
-      });
-      this.forceUpdate();
-    }
-    else {
-      const response = await fetch("url de la api para traer porductos")
-    }
-    const respJson = await response.Json();
-    if(respJson.success){
-      this.setState({
-        status:true,
-        data:respJson.Data,
-      });
-      this.forceUpdate();
-    }
+    //if(this.props.data){
+    //  this.setState({
+    //   status:true,
+    //   data:this.props.data,
+    //  });
+    //  this.forceUpdate();
+    //}
+    //else {
+    //  const response = await fetch("url de la api para traer porductos")
+    //}
+    //const respJson = await response.Json();
+    //if(respJson.success){
+    //  this.setState({
+    //    status:true,
+    //    data:respJson.Data,
+    //  });
+    //  this.forceUpdate();
+    //}
 
 
   }

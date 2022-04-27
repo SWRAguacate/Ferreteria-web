@@ -114,21 +114,6 @@ class Products extends React.Component {
               ></ProductA>
             </div>
           ))}
-          <ProductA
-            title="Producto"
-            description="Descripcion"
-            productId="1"
-          ></ProductA>
-          <ProductA
-            title="Producto"
-            description="Descripcion"
-            productId="1"
-          ></ProductA>
-          <ProductA
-            title="Producto"
-            description="Descripcion"
-            productId="1"
-          ></ProductA>
         </div>
       </div>
     );
@@ -143,6 +128,7 @@ class Products extends React.Component {
             state: true,
             products: respJson.Data,
           });
+          console.log(respJson.Data);
           this.forceUpdate();
         }
       });

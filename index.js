@@ -8,6 +8,9 @@ const port = 3000;
 
 db(DBCONNECTION);
 
+var cors = require('cors');
+
+app.use(cors());
 app.use(express.json());
 
 routerApi(app);

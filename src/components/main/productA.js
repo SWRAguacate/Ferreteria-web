@@ -58,7 +58,7 @@ class ProductA extends React.Component {
 
     const finalData = this.state.fakeData !== null ? this.state.fakeData:this.state.data;
 
-    const {name,description} = finalData;
+    const {nombre,descripcion} = finalData;
     return this.state.status===true?(
       <Card color="light">
         <CardBody>
@@ -67,8 +67,8 @@ class ProductA extends React.Component {
               <img src={productImage} thumbnail style={{ width: '100%' }}></img>
             </div>
             <div className="col-sm-6 ">
-              <CardTitle tag="h5">{name}</CardTitle>
-              <CardText>{description}</CardText>
+              <CardTitle tag="h5">{nombre}</CardTitle>
+              <CardText>{descripcion}</CardText>
             </div>
             <div className="col-sm-3 ">
               <div className="row">
