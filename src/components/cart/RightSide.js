@@ -7,7 +7,8 @@ class RightSide extends React.Component {
   constructor() {
     super();
     this.state = {
-      someKey: 'someValue'
+      status: false,
+      products: [],
     };
   }
 
@@ -26,9 +27,17 @@ class RightSide extends React.Component {
 
           <hr style={{ color: 'white' }}></hr>
           <br></br>
-          <ProductR title="Producto" quantity="1"></ProductR>
-          <ProductR title="Producto" quantity="1"></ProductR>
-          <ProductR title="Producto" quantity="1"></ProductR>
+          {this.state.products.map((product, index) => (
+            <div key={index}>
+              <ProductR
+                key={index}
+                id={product._id}
+                callbackMessage={() => this.props.callbackMessage}
+                status={this.state.status}
+                data={product}
+              ></ProductR>
+            </div>
+          ))}
           <br></br>
 
           <hr style={{ color: 'white' }}></hr>
@@ -51,9 +60,18 @@ class RightSide extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
+    fetch('query para traer todos los productos del carrito de una persona')
+      .then((response) => response.json())
+      .then((respJson) => {
+        if (respJson.success) {
+          this.setState({
+            state: true,
+            products: respJson.Data,
+          });
+          console.log(respJson.Data);
+          this.forceUpdate();
+        }
+      });
   }
 }
 

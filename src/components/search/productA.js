@@ -21,15 +21,40 @@ class ProductA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      someKey: 'someValue',
-      title: this.props.title,
-      description: this.props.description,
-      productId: this.props.productId
+      id:"",
+      status:false,
+      type:TYPESHOW,
+      prevtype:TYPESHOW,
+      data:{},
+      someKey: 'someValue'
     };
   }
 
+  async componentDidMount() {
+    if (this.props.data) {
+      this.setState({
+        status: true,
+        data: this.props.data,
+      });
+      this.forceUpdate();
+    } else if (this.props.id) {
+      const response = await fetch(`http://localhost:3000/api/v1/products/${this.props.id}`);
+    }
+    const respJson = await response.Json();
+    if (respJson.success) {
+      this.setState({
+        status: true,
+        data: respJson.Data,
+      });
+      this.forceUpdate();
+    }
+  }
+
   render() {
-    return (
+    const finalData = this.state.fakeData !== null ? this.state.fakeData:this.state.data;
+
+    const {nombre,descripcion} = finalData;
+    return this.state.status === true?(
       <Card color="light">
         <CardBody>
           <div className="row">
@@ -37,9 +62,9 @@ class ProductA extends React.Component {
               <img src={productImage} thumbnail style={{ width: '100%' }}></img>
             </div>
             <div className="col-sm-6 ">
-              <CardTitle tag="h5">{this.state.title}</CardTitle>
+              <CardTitle tag="h5">{nombre}</CardTitle>
               <CardText>
-                {this.state.description}
+                {descripcion}
               </CardText>
             </div>
             <div className="col-sm-3 ">
@@ -70,14 +95,9 @@ class ProductA extends React.Component {
           </div>
         </CardBody>
       </Card>
-    );
+    ):(<div></div>)
   }
 
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
-  }
 }
 
 export default ProductA;

@@ -18,7 +18,8 @@ class LeftSide extends React.Component {
   constructor() {
     super();
     this.state = {
-      someKey: 'someValue',
+      status: false,
+      products: [],
     };
   }
 
@@ -36,18 +37,34 @@ class LeftSide extends React.Component {
 
           </div>
         </div>
-
-        <ProductA id={"1"} title="Producto" description="Descripcion" quantity="1" productId="1" callbackM={this.cllbckProductMessage}></ProductA>
-        <ProductA id={"2"} title="Producto" description="Descripcion" quantity="1" productId="2" callbackM={this.cllbckProductMessage}></ProductA>
-        <ProductA id={"3"} title="Producto" description="Descripcion" quantity="1" productId="3" callbackM={this.cllbckProductMessage}></ProductA>
+        {this.state.products.map((product, index) => (
+            <div key={index}>
+              <ProductA
+                key={index}
+                id={product._id}
+                callbackMessage={() => this.props.callbackMessage}
+                status={this.state.status}
+                data={product}
+              ></ProductA>
+            </div>
+          ))}
       </div>
     );
   }
 
   componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
+    fetch('query para traer todos los productos del carrito de una persona')
+      .then((response) => response.json())
+      .then((respJson) => {
+        if (respJson.success) {
+          this.setState({
+            state: true,
+            products: respJson.Data,
+          });
+          console.log(respJson.Data);
+          this.forceUpdate();
+        }
+      });
   }
 }
 

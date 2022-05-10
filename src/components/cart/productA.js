@@ -27,36 +27,31 @@ class ProductA extends React.Component {
   }
 
   async componentDidMount() {
-    if(this.props.data){
+    if (this.props.data) {
       this.setState({
-        title: this.props.title,
-        description: this.props.description,
-        quantity: this.props.quantity,
-        productId: this.props.productId,
-        id: this.props.id,
-        status:true,
-        data: this.props.data
+        status: true,
+        data: this.props.data,
+      });
+      this.forceUpdate();
+    } else if (this.props.id) {
+      const response = await fetch(`http://localhost:3000/api/v1/products/${this.props.id}`);
+    }
+    const respJson = await response.Json();
+    if (respJson.success) {
+      this.setState({
+        status: true,
+        data: respJson.Data,
       });
       this.forceUpdate();
     }
-    else if(this.props.id) {
-        const response = await fetch(
-          `http://localhost:3000/api/v1/products/${this.pros.id}`
-        );
-        const respJson = await response.json();
-        if(respJson.success){
-          this.setState({
-            status:true,
-            data: respJson.Data
-          });
-        this.forceUpdate();
-        }
-    }
-
   }
 
   render() {
     const isShow = this.state.type === TYPESHOW;
+
+    const finalData = this.state.fakeData !== null ? this.state.fakeData:this.state.data;
+
+    const {nombre,descripcion,cantidad} = finalData;
     return this.state.status === true(
       <Card color="light">
         <CardBody>
@@ -66,9 +61,9 @@ class ProductA extends React.Component {
             </div>
             <div className="col-sm-1 "></div>
             <div className="col-sm-5 ">
-              <CardTitle tag="h5">{this.state.title}</CardTitle>
+              <CardTitle tag="h5">{nombre}</CardTitle>
               <CardText>
-                {this.state.description}
+              {descripcion}
               </CardText>
             </div>
             <div className="col-sm-3 ">
@@ -78,7 +73,7 @@ class ProductA extends React.Component {
                 </div>
                 <div className="col-sm-5">
                   <FormGroup>
-                    <Input id="id_cantidad" name="cantidad" type="number" />
+                    <Input id="id_cantidad" name="cantidad" type="number" value={cantidad}/>
                   </FormGroup>
                 </div>
               </div>

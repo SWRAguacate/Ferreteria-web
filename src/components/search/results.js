@@ -20,7 +20,8 @@ class Results extends React.Component {
   constructor() {
     super();
     this.state = {
-      someKey: 'someValue',
+      status: false,
+      products: [],
     };
   }
 
@@ -32,18 +33,36 @@ class Results extends React.Component {
         </div>
         <br></br>
         <div className="container">
-          <ProductA title="Producto" description="Descripcion" productId="1"></ProductA>
-          <ProductA title="Producto" description="Descripcion" productId="1"></ProductA>
-          <ProductA title="Producto" description="Descripcion" productId="1"></ProductA>
+          {this.state.products.map((product, index) => (
+              <div key={index}>
+                <ProductA
+                  key={index}
+                  id={product._id}
+                  callbackMessage={() => this.props.callbackMessage}
+                  status={this.state.status}
+                  data={product}
+                ></ProductA>
+              </div>
+            ))}
+
         </div>
       </div>
     );
   }
 
   componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
+    fetch('query para traer todos los productos de busqueda')
+      .then((response) => response.json())
+      .then((respJson) => {
+        if (respJson.success) {
+          this.setState({
+            state: true,
+            products: respJson.Data,
+          });
+          console.log(respJson.Data);
+          this.forceUpdate();
+        }
+      });
   }
 }
 
