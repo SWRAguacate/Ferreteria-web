@@ -26,4 +26,10 @@ const getIdUserDto = Joi.object({
   id: idValidation.required(),
 });
 
-module.exports = { createUserDto, updateUserDto, getIdUserDto };
+//LOGIN
+const loginUserDto = Joi.object({
+  correo: mailValidation.required(),
+  contrasenia: passValidation.required()
+});
+
+module.exports = { createUserDto, updateUserDto, getIdUserDto, loginUserDto };

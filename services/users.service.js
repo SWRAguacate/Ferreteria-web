@@ -96,6 +96,21 @@ class UserService
     return user;
   }
 
+  async loginDB(data) {
+    const { correo, contrasenia } = data;
+    const user = await UsuarioModel.findOne({
+      contrasenia: contrasenia,
+      correo: correo
+    });
+
+    if(user == undefined || user == null)
+     throw boom.notFound('Usuario no encontrado');
+    else if (user.length <= 0)
+     throw boom.notFound('Usuario no existente');
+
+    return user;
+  }
+
   async createDB(data) {
     const user_model = new UsuarioModel(data);
     await user_model.save();

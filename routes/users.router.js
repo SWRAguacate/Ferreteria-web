@@ -2,7 +2,7 @@ const express = require('express');
 const UserService = require('../services/users.service');
 const service = new UserService();
 const validatorHandler = require('../middlewares/validator.handler');
-const { createUserDto, updateUserDto, getIdUserDto } = require('../middlewares/dtos/user.dto');
+const { createUserDto, updateUserDto, getIdUserDto, loginUserDto } = require('../middlewares/dtos/user.dto');
 const router = express.Router();
 
 // SELECT
@@ -29,6 +29,21 @@ router.get('/:id', validatorHandler(getIdUserDto, 'params'), async (req, res, ne
     } catch (error) {
       next(error);
     }
+});
+
+//SELECT ONE
+router.post('/login', validatorHandler(loginUserDto, 'body'), async (req, res, next)=> {
+  try {
+    const body = req.body;
+    const user = await service.loginDB(body);
+   res.json({
+        'success': true,
+        'message': 'Usuario encontrado',
+        'Data': user
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //CREATE

@@ -5,6 +5,10 @@ const Schema = mongoose.Schema;
 const carritoSchema = new Schema({
   id_usuario: String,
   id_producto: String,
+  nombre: String,
+  descripcion: String,
+  imagen: String,
+  precio: String,
   cantidad: Number,
   total_producto: Number
 });
