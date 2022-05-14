@@ -1,4 +1,5 @@
-import React from 'react';
+import ReactDOM from 'react-dom'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Index from './components/pages/index';
@@ -11,21 +12,6 @@ import Orders from './components/pages/orders';
 import Products from './components/pages/products';
 import Search from './components/pages/search';
 import ViewProduct from './components/pages/viewProduct';
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem,
-  NavbarText,
-  Input,
-  Button,
-  Form,
-  FormGroup,
-  Label
-} from 'reactstrap';
-import logo from './components/header/img/ferreteria.png';
 
 function App() {
   return (

@@ -84,9 +84,15 @@ class CartService
     return cartDB;
   }
 
+  async findUserCartDB(limit, filter) {
+    let cartDB = await cartModel.find(filter);
+    cartDB = limit ? cartDB.filter((item, index) => item && index < limit) : cartDB;
+    return cartDB;
+  }
+
   async findOneDB(id) {
     const cart = await cartModel.findOne({
-      _id: id
+      id_usuario: id
     });
 
     if(cart == undefined || cart == null)
@@ -110,12 +116,20 @@ class CartService
     let cartOriginal = {
       id_usuario: cart.id_usuario,
       id_producto: cart.id_producto,
+      nombre: cart.nombre,
+      descripcion: cart.descripcion,
+      imagen: cart.imagen,
+      precio: cart.precio,
       cantidad: cart.cantidad,
       total_producto: cart.total_producto
     };
-    const { id_usuario, id_producto, cantidad, total_producto } = changes;
+    const { id_usuario, id_producto, nombre, descripcion, imagen, precio, cantidad, total_producto } = changes;
     cart.id_usuario = id_usuario;
     cart.id_producto = id_producto;
+    cart.nombre = nombre;
+    cart.descripcion = descripcion;
+    cart.imagen = imagen;
+    cart.precio = precio;
     cart.cantidad = cantidad;
     cart.total_producto = total_producto;
     cart.save();

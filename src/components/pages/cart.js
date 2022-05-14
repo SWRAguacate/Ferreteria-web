@@ -23,7 +23,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    const isEdit = this.state.type === TYPEEDIT;
+    const isEdit = this.state.type === 'edit';
     const isShow = this.state.type === TYPESHOW;
     return this.state.status === true ? (
       <div>
