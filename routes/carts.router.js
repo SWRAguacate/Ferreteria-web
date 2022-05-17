@@ -32,6 +32,21 @@ router.get('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, ne
     }
 });
 
+//SELECT
+router.get('/product/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, next)=> {
+  try {
+    const { id } = req.params;
+    const carrito = await service.findOneCartDB(id);
+   res.json({
+        'success': true,
+        'message': 'Carrito encontrado',
+        'Data': carrito
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 //CREATE
 router.post('/', validatorHandler(createCartDto, 'body'), async (req, res, next)=> {
   try {

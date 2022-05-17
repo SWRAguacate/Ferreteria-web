@@ -1,15 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from "styled-components";
-
-
-const HeaderPlaceHolder = styled.h2`
-color: white;
-`;
-const DivPlaceHolder = styled.div`
-width: 80%;
-vertical-align:middle;
-`;
 
 class Placeholder extends React.Component {
   constructor() {
@@ -22,16 +12,28 @@ class Placeholder extends React.Component {
   render() {
     return (
       <div>
-        <DivPlaceHolder
+        <div
+          className="container bg-dark rounded shadow"
         >
           <br></br>
           <br></br>
           <br></br>
-          <HeaderPlaceHolder>Carrito vacio</HeaderPlaceHolder>
+          <div className="row">
+            <div className="col" style={{  verticalAlign: 'middle' }}>
+              <br></br>
+              <br></br>
+              <h3 style={{ color: 'white', verticalAlign: 'middle' }}>
+                Carrito vacio
+              </h3>
+              <br></br>
+              <br></br>
+            </div>
+          </div>
+
           <br></br>
           <br></br>
           <br></br>
-        </DivPlaceHolder>
+        </div>
       </div>
     );
   }

@@ -133,6 +133,10 @@ class Products extends React.Component {
         }
       });
   }
+
+  componentWillUnmount(){
+
+  }
 }
 
 export default Products;

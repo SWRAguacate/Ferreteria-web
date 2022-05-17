@@ -12,19 +12,30 @@ import {
   Input,
 } from 'reactstrap';
 import ProductA from './productA';
+import Placeholder from './placeholder';
 import cartImage from './img/placeholder.jpg';
 import { Link } from 'react-router-dom';
+//import from 'react-bootstrap';
+
+const TYPESHOW = "show";
+const TYPEEMPTY = "empty";
+
 class LeftSide extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       status: false,
       products: [],
+      type: props.type,
+      prevType: TYPESHOW,
     };
   }
 
   render() {
-    return (
+    const isShow = this.state.type === TYPESHOW;
+    const isEmpty= this.state.type === TYPEEMPTY;
+
+    return isShow? (
       <div>
         <div className="row">
           <div className="col-sm-5">
@@ -44,16 +55,25 @@ class LeftSide extends React.Component {
                 id={product._id}
                 callbackMessage={() => this.props.callbackMessage}
                 status={this.state.status}
-                data={product}
+                type = "show"
               ></ProductA>
             </div>
           ))}
       </div>
-    );
+    ):isEmpty ?(
+      <div>
+        <div className="col-sm-5">
+        <h2>Carrito de compras</h2>
+        </div>
+        <br></br>
+        <br></br>
+        <Placeholder></Placeholder>
+      </div>
+    ):(<div></div>);
   }
 
   componentDidMount() {
-    fetch('query para traer todos los productos del carrito de una persona')
+    fetch(`http://localhost:3000/api/v1/carts?id=${this.props.id_u}`)
       .then((response) => response.json())
       .then((respJson) => {
         if (respJson.success) {
@@ -61,7 +81,6 @@ class LeftSide extends React.Component {
             state: true,
             products: respJson.Data,
           });
-          console.log(respJson.Data);
           this.forceUpdate();
         }
       });

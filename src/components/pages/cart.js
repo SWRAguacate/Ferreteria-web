@@ -4,18 +4,12 @@ import PieFooter from './../footer/Footer';
 import LeftSide from './../cart/LeftSide';
 import RightSide from './../cart/RightSide';
 import Placeholder from '../cart/placeholder';
-
-const TYPESHOW = 'show';
-const TYPEDIT = 'edit';
-const TYPEDELETE = 'delete';
 class Cart extends React.Component {
   constructor() {
     super();
     this.state = {
       id: '',
       status: false,
-      type: TYPESHOW,
-      prevType: TYPESHOW,
       data: {},
       fakeData: null,
 
@@ -23,9 +17,8 @@ class Cart extends React.Component {
   }
 
   render() {
-    const isEdit = this.state.type === 'edit';
-    const isShow = this.state.type === TYPESHOW;
-    return this.state.status === true ? (
+
+    return  (
       <div>
         <MenuNav></MenuNav>
         <br></br>
@@ -33,30 +26,11 @@ class Cart extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-8">
-              <LeftSide ></LeftSide>
+              <LeftSide id_u ="623689f4a06940d1cd7d98a3" type="show"></LeftSide>
             </div>
             <div className="col-sm-4">
-              <RightSide></RightSide>
+              <RightSide id_u ="623689f4a06940d1cd7d98a3" type="show"></RightSide>
             </div>
-          </div>
-        </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <PieFooter></PieFooter>
-      </div>
-    ) : (
-      <div>
-        <MenuNav></MenuNav>
-        <br></br>
-        <br></br>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-2"></div>
-            <div className="col-sm-8">
-              <Placeholder></Placeholder>
-            </div>
-            <div className="col-sm-2"></div>
           </div>
         </div>
         <br></br>

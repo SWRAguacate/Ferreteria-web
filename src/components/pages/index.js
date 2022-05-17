@@ -14,7 +14,7 @@ class Index extends React.Component {
 
   render() {
     return (<div>
-      <MenuNav></MenuNav>
+      <MenuNav type="logged"></MenuNav>
       <br></br>
       <br></br>
       <div className="container">

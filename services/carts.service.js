@@ -103,6 +103,19 @@ class CartService
     return cart;
   }
 
+  async findOneCartDB(id) {
+    const cart = await cartModel.findOne({
+      _id: id
+    });
+
+    if(cart == undefined || cart == null)
+     throw boom.notFound('Carrito no encontrado');
+    else if (cart.length <= 0)
+     throw boom.notFound('Carrito no existente');
+
+    return cart;
+  }
+
   async createDB(data) {
     const cart_model = new cartModel(data);
     await cart_model.save();

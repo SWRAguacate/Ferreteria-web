@@ -18,15 +18,23 @@ import {
 import logo from './img/ferreteria.png';
 import { Link } from 'react-router-dom';
 
+const TYPELOGGED = 'logged';
+const TYPEUNLOGGED = 'unlogged';
+const TYPELOGGEDSU = 'loggedsu';
 class MenuNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       status: props.logged,
+      type: props.type,
+      prevType: TYPEUNLOGGED,
     };
   }
 
   render() {
+    const isLogged = this.state.type === TYPELOGGED;
+    const isUnlogged = this.state.type === TYPEUNLOGGED;
+    const isLoggedSU= this.state.type === TYPELOGGEDSU;
     return (
       <div>
         <Navbar color="dark" dark expand="md" light>
@@ -41,21 +49,30 @@ class MenuNav extends React.Component {
                   Inicio
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link to={'/login'} className="nav-link">
-                  Iniciar sesion
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to={'/cart'} className="nav-link">
-                  Carrito
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to={'/indexSP'} className="nav-link">
-                  Inicio SP
-                </Link>
-              </NavItem>
+              {isLogged ? (
+                <NavItem>
+                  <Link to={'/cart'} className="nav-link">
+                    Carrito
+                  </Link>
+                </NavItem>
+              ) : isUnlogged ?(
+                  <NavItem>
+                    <Link to={'/login'} className="nav-link">
+                      Iniciar sesion
+                    </Link>
+                  </NavItem>
+                ) :isLoggedSU ?(
+                  <NavItem>
+                  <Link to={'/indexSP'} className="nav-link">
+                    Inventario
+                  </Link>
+                </NavItem>
+                ) :(
+                  <div></div>
+                )
+              }
+
+
             </Nav>
             <NavbarText>
               <div className="row">

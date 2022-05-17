@@ -40,26 +40,30 @@ class ProductA extends React.Component {
       });
       this.forceUpdate();
     } else if (this.props.id) {
-      const response = await fetch(`http://localhost:3000/api/v1/products/${this.props.id}`);
-    }
-    const respJson = await response.Json();
-    if (respJson.success) {
-      this.setState({
-        status: true,
-        data: respJson.Data,
-      });
-      this.forceUpdate();
+      const response = await fetch(
+        `http://localhost:3000/api/v1/products/${this.props.id}`
+      );
+      const respJson = await response.Json();
+      console.log("AQUI 2")
+      console.log(respJson)
+      if (respJson.success) {
+        this.setState({
+          status: true,
+          data: respJson.Data,
+        });
+        this.forceUpdate();
+      }
     }
   }
 
   render() {
+    const isShow = this.state.type === TYPESHOW;
 
-    const isShow = this.state.type===TYPESHOW;
+    const finalData =
+      this.state.fakeData !== null ? this.state.fakeData : this.state.data;
 
-    const finalData = this.state.fakeData !== null ? this.state.fakeData:this.state.data;
-
-    const {nombre,descripcion} = finalData;
-    return this.state.status===true?(
+    const { nombre, descripcion } = finalData;
+    return this.state.status === true ? (
       <Card color="light">
         <CardBody>
           <div className="row">
@@ -96,7 +100,9 @@ class ProductA extends React.Component {
           </div>
         </CardBody>
       </Card>
-    ):(<div></div>);
+    ) : (
+      <div></div>
+    );
   }
 }
 
