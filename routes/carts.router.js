@@ -67,13 +67,13 @@ router.patch('/:id', validatorHandler(getIdCartDto, 'params'), validatorHandler(
     try {
       const { id } = req.params;
       const body = req.body;
-      const {old, changed} = await service.updateDB(id, body);
+      const {original, actualizado} = await service.updateDB(id, body);
       res.json({
           'success': true,
           'message': 'Carrito actualizado',
           'Data': {
-            "cambios": changed,
-            "original": old
+            "cambios": actualizado,
+            "original": original
           }
       });
     } catch (error) {
