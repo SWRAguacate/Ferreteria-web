@@ -2,10 +2,11 @@ import React from 'react';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer';
 import Results from './../search/results';
+
 import Placeholder from '../search/placeholder';
 
 const TYPESHOW = 'show';
-const TYPEDIT = 'edit';
+const TYPEEDIT = 'edit';
 const TYPEDELETE = 'delete';
 class Search extends React.Component {
   constructor() {
