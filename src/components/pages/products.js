@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuSp } from './../headersp/IndexHeaderSp';
 import { NavSp } from './../navsp/IndexNavSp';
-import {Productos} from './../productos/Productos'
+import Productos from './../productos/Productos'
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer'
 
@@ -19,7 +19,7 @@ class Products extends React.Component {
       <br></br>
       <br></br>
       <NavSp></NavSp>
-      <Productos></Productos>
+      <Productos type={'show'}></Productos>
       <br></br>
       <br></br>
       <br></br>

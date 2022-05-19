@@ -11,8 +11,27 @@ import {
   Button,
 } from 'reactstrap';
 
-export const Productos = () => (
-  <Container>
+const TYPESHOW = "show";
+const TYPEEMPTY = "empty";
+const TYPEEDIT = "edit";
+
+class Productos extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: false,
+      products: [],
+      type: props.type,
+      prevType: TYPESHOW,
+    };
+  }
+
+  render() {
+    const isShow = this.state.type === TYPESHOW;
+    const isEmpty= this.state.type === TYPEEMPTY;
+
+    return isShow? (
+      <Container>
     <Row xs="2">
       <Col className="block-example border border-0 border-dark container">
         <FormGroup style={{ marginTop: '2%', marginBottom: '2%' }}>
@@ -108,7 +127,7 @@ export const Productos = () => (
       <Col className="block-example border border-0 border-dark container">
         <FormGroup style={{ marginTop: '2%', marginBottom: '2%' }}>
           <Label for="exampleEmail"> Foto:</Label>
-          <Input id="Foto" name="Foto" placeholder="" type="text" />
+          <Input id="Foto" name="Foto" placeholder="Imagen" type="text" />
         </FormGroup>
       </Col>
       <Col className="block-example border border-0 border-dark container">
@@ -120,4 +139,22 @@ export const Productos = () => (
       </Col>
     </Row>
   </Container>
-);
+  ) : (<div></div>) }
+
+  componentDidMount() {
+    //fetch(`http://localhost:3000/api/v1/products/${this.props.id_u}`)
+    fetch(`http://localhost:3000/api/v1/products/623e4ee0ab625a77bd27a691`)
+      .then((response) => response.json())
+      .then((respJson) => {
+        if (respJson.success) {
+          this.setState({
+            state: true,
+            product: respJson.Data,
+          });
+          this.forceUpdate();
+        }
+      });
+  }
+}
+
+export default Productos;

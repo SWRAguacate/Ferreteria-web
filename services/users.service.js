@@ -39,10 +39,28 @@ class UserService
     return user;
   }
 
+  async validateMail(data) {
+    const { correo } = data;
+    const user = await UsuarioModel.findOne({
+      correo: correo
+    });
+
+    return user;
+  }
+
+
   async createDB(data) {
+    const user = this.validateMail(data);
+    if(user == null || user == undefined){
     const user_model = new UsuarioModel(data);
     await user_model.save();
-    return data;
+    const registered = await this.loginDB(data);
+    return registered;
+    } else {
+      return ({
+        error: 'Correo no disponible'
+      })
+    }
   }
 
   async updateDB(id, changes) {
