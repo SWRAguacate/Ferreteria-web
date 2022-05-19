@@ -5,6 +5,12 @@ class UserService
 {
   constructor() {}
 
+  async findDB(limit, filter) {
+    let usersDB = await UsuarioModel.find(filter);
+    usersDB = limit ? usersDB.filter((item, index) => item && index < limit) : usersDB;
+    return usersDB;
+  }
+
   async findOneDB(id) {
     const user = await UsuarioModel.findOne({
       _id: id
