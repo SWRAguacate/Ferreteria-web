@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer'
+
 import Deals from './../main/deals';
 import Products from './../main/products';
 
