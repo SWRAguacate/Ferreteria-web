@@ -76,9 +76,6 @@ class MenuNav extends React.Component {
             </Nav>
             <NavbarText>
               <div className="row">
-                <div className="col-sm-6">
-                  <Input />
-                </div>
                 <div className="col-sm-5">
                   <Button color="primary">
                     <Link to={'/search'} className="nav-link">

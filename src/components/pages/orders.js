@@ -2,6 +2,8 @@ import React from 'react';
 import { MenuSp } from './../headersp/IndexHeaderSp';
 import { NavSp } from './../navsp/IndexNavSp';
 import { Pedidos } from './../orders/Orders';
+import MenuNav from './../header/Header';
+import PieFooter from './../footer/Footer'
 
 class Orders extends React.Component {
   constructor() {
@@ -13,7 +15,7 @@ class Orders extends React.Component {
 
   render() {
     return (<div>
-      <MenuSp></MenuSp>
+      <MenuNav></MenuNav>
       <br></br>
       <br></br>
       <NavSp></NavSp>
@@ -22,6 +24,7 @@ class Orders extends React.Component {
       <br></br>
       <br></br>
       <br></br>
+      <PieFooter></PieFooter>
     </div>);
   }
 

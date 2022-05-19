@@ -44,7 +44,7 @@ export const Pedidos = () => (
     <br></br>
     <br></br>
 
-    <nav class="fixed-bottom">
+    <nav class="">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
           <a class="page-link">Previous</a>
