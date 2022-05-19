@@ -48,9 +48,8 @@ class UserService
     return user;
   }
 
-
   async createDB(data) {
-    const user = this.validateMail(data);
+    const user = await this.validateMail(data);
     if(user == null || user == undefined){
     const user_model = new UsuarioModel(data);
     await user_model.save();
