@@ -1,5 +1,4 @@
 import React from 'react';
-import { MenuSp } from './../headersp/IndexHeaderSp';
 import { Pedidos } from './../orders/Orders';
 import { NavSp } from './../navsp/IndexNavSp';
 import MenuNav from './../header/Header';

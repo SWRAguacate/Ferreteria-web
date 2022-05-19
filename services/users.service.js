@@ -56,9 +56,7 @@ class UserService
     const registered = await this.loginDB(data);
     return registered;
     } else {
-      return ({
-        error: 'Correo no disponible'
-      })
+      throw boom.notAcceptable('Correo no disponible');
     }
   }
 
