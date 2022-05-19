@@ -20,7 +20,7 @@ class Cart extends React.Component {
 
     return  (
       <div>
-        <MenuNav></MenuNav>
+        <MenuNav  type="logged"></MenuNav>
         <br></br>
         <br></br>
         <div className="container">

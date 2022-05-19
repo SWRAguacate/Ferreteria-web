@@ -15,7 +15,7 @@ class Login extends React.Component {
 
   render() {
     return (<div>
-      <MenuNav></MenuNav>
+      <MenuNav  type="unlogged"></MenuNav>
       <br></br>
       <br></br>
       <div className='container bg-dark rounded shadow' style={{width:"80%", verticalAlign:"middle"}}>
