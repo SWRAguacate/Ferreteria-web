@@ -65,22 +65,6 @@ router.get('/:id', validatorHandler(getIdProductDto, 'params'), async (req, res,
   }
 });
 
-// SELECT CART DE UN USUARIO
-router.post('/search', validatorHandler(getSearchDto, 'body'), async (req, res, next)=> {
-  try {
-  const { nombre, precio, categoria } = req.body;
-  const filter = { nombre: nombre, precio: precio, categoria: categoria }
-    const product = await service.findSearchDB(filter);
-    res.json({
-      'success': true,
-      'message': 'Carritos encontrados',
-      'Data': product
-    });
-  } catch (error) {
-      next(error);
-    }
-});
-
 //CREATE
 router.post('/', validatorHandler(createProductDto, 'body'), async (req, res, next)=> {
   try {
@@ -94,6 +78,22 @@ router.post('/', validatorHandler(createProductDto, 'body'), async (req, res, ne
   } catch (error) {
     next(error);
   }
+});
+
+// SELECT CART DE UN USUARIO
+router.post('/search', validatorHandler(getSearchDto, 'body'), async (req, res, next)=> {
+  try {
+  const { nombre, precio } = req.body;
+  const filter = { nombre: nombre, precio: precio }
+    const product = await service.findSearchDB(filter);
+    res.json({
+      'success': true,
+      'message': 'Carritos encontrados',
+      'Data': product
+    });
+  } catch (error) {
+      next(error);
+    }
 });
 
 //UPDATE

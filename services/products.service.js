@@ -18,9 +18,8 @@ class ProductService
   }
 
   async findSearchDB(filter) {
-    let product = await ProductModel.find( {
-      nombre: filter.nombre,
-      $or: [ { precio: { $lt: filter.precio } }, { nombre: filter.nombre } ]
+    let product = await ProductModel.find( { $nombre: { $search: filter.nombre },
+     precio: { $lt: filter.precio }
  } )
 
     if(product == undefined || product == null)

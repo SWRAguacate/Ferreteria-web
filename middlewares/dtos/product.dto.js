@@ -2,7 +2,8 @@ const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
 const idValidation = Joi.string();
-const nameValidation = Joi.string().min(3).max(15);
+const nameValidation = Joi.string().min(3).max(30);
+const nameSearchValidation = Joi.string().min(3).max(45);
 const priceValidation = Joi.number().integer().min(10);
 const intValidation = Joi.number().integer();
 const stringValidation = Joi.string();
@@ -45,9 +46,8 @@ const updateProductDto = Joi.object({
 
 //SEARCH
 const getSearchDto = Joi.object({
-  nombre: nameValidation,
-  precio: priceValidation,
-  categoria: categoriesValidation
+  nombre: nameSearchValidation,
+  precio: priceValidation
 });
 
 //CUANDO REQUERIMOS UN ID
