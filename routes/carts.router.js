@@ -6,15 +6,19 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createCartDto, updateCartDto, getIdCartDto } = require('../middlewares/dtos/cart.dto');
 
 // SELECT CART DE UN USUARIO
-router.get('/', async (req, res)=> {
-  const { size, id } = req.query;
+router.get('/', validatorHandler(getIdCartDto, 'query'), async (req, res, next)=> {
+  try {
+  const { id } = req.query;
   const filter = { id_usuario: id}
-    const carrito = await service.findDB((size || 10), filter);
+    const carrito = await service.findDB(filter);
     res.json({
       'success': true,
       'message': 'Carritos encontrados',
       'Data': carrito
     });
+  } catch (error) {
+      next(error);
+    }
 });
 
 //SELECT
@@ -81,19 +85,35 @@ router.patch('/:id', validatorHandler(getIdCartDto, 'params'), validatorHandler(
     }
 });
 
-//DELETE
+// DELETE CART DE UN USUARIO
 router.delete('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, next)=> {
-    try {
-      const { id } = req.params;
-      const carrito = await service.deleteDB(id);
-      res.json({
-          'success': true,
-          'message': 'Carrito eliminado',
-          'Data': carrito
-      });
-    } catch (error) {
-      next(error);
-    }
+  try{
+  const { id } = req.params;
+  const filter = { id_usuario: id}
+    const carrito = await service.deleteUserCartDB(filter);
+    res.json({
+      'success': true,
+      'message': 'Carritos eliminados',
+      'Data': carrito
+    });
+  } catch (error) {
+    next(error);
+  }
 });
+
+////DELETE
+//router.delete('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, next)=> {
+//    try {
+//      const { id } = req.params;
+//      const carrito = await service.deleteUserCartDB(id);
+//      res.json({
+//          'success': true,
+//          'message': 'Carrito eliminado',
+//          'Data': carrito
+//      });
+//    } catch (error) {
+//      next(error);
+//    }
+//});
 
 module.exports = router;

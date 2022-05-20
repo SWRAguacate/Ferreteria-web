@@ -130,6 +130,12 @@ class Productos extends React.Component {
         </FormGroup>
       </Col>
       <Col className="block-example border border-0 border-dark container">
+        <FormGroup style={{ marginTop: '2%', marginBottom: '2%' }}>
+          <Label for="exampleEmail"> Existencias:</Label>
+          <Input id="Marca" name="Marca" placeholder="Cantidad" type="text" />
+        </FormGroup>
+      </Col>
+      <Col className="block-example border border-0 border-dark container">
         <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
           <Button color="success">Alta</Button>
         </ButtonGroup>

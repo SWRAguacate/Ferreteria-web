@@ -6,7 +6,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createExpirationDto, updateExpirationDto, getIdExpirationDto } = require('../middlewares/dtos/expiration.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try{
   const { size } = req.query;
     const expiracion = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Expiraciones encontradas',
       'Data': expiracion
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT

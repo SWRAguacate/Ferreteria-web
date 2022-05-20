@@ -6,7 +6,8 @@ const { createUserDto, updateUserDto, getIdUserDto, loginUserDto } = require('..
 const router = express.Router();
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try {
   const { size } = req.query;
     const user = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Usuario encontrados',
       'Data': user
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT ONE

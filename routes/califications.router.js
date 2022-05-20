@@ -6,7 +6,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createCalificationDto, updateCalificationDto, getIdCalificationDto } = require('../middlewares/dtos/calification.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try{
   const { size } = req.query;
     const calificacion = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Calificaciones encontradas',
       'Data': calificacion
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT

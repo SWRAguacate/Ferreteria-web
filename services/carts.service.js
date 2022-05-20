@@ -1,44 +1,40 @@
 const boom = require('@hapi/boom');
 const cartModel = require('../models/cart.model.js');
 
-class CartService
-{
+class CartService {
   constructor() {}
 
-  async findDB(limit, filter) {
+  async findDB(filter) {
     let cartDB = await cartModel.find(filter);
-    cartDB = limit ? cartDB.filter((item, index) => item && index < limit) : cartDB;
-    return cartDB;
-  }
 
-  async findUserCartDB(limit, filter) {
-    let cartDB = await cartModel.find(filter);
-    cartDB = limit ? cartDB.filter((item, index) => item && index < limit) : cartDB;
+    if(cartDB.length <= 0)
+      throw boom.notFound('Carrito vacio');
+
     return cartDB;
   }
 
   async findOneDB(id) {
     const cart = await cartModel.findOne({
-      id_usuario: id
+      id_usuario: id,
     });
 
-    if(cart == undefined || cart == null)
-     throw boom.notFound('Carrito no encontrado');
+    if (cart == undefined || cart == null)
+      throw boom.notFound('Carrito no encontrado');
     else if (cart.length <= 0)
-     throw boom.notFound('Carrito no existente');
+      throw boom.notFound('Carrito no existente');
 
     return cart;
   }
 
   async findOneCartDB(id) {
     const cart = await cartModel.findOne({
-      _id: id
+      _id: id,
     });
 
-    if(cart == undefined || cart == null)
-     throw boom.notFound('Carrito no encontrado');
+    if (cart == undefined || cart == null)
+      throw boom.notFound('Carrito no encontrado');
     else if (cart.length <= 0)
-     throw boom.notFound('Carrito no existente');
+      throw boom.notFound('Carrito no existente');
 
     return cart;
   }
@@ -51,7 +47,7 @@ class CartService
 
   async updateDB(id, changes) {
     let cart = await cartModel.findOne({
-      _id: id
+      _id: id,
     });
     let cartOriginal = {
       id_usuario: cart.id_usuario,
@@ -61,9 +57,18 @@ class CartService
       imagen: cart.imagen,
       precio: cart.precio,
       cantidad: cart.cantidad,
-      total_producto: cart.total_producto
+      total_producto: cart.total_producto,
     };
-    const { id_usuario, id_producto, nombre, descripcion, imagen, precio, cantidad, total_producto } = changes;
+    const {
+      id_usuario,
+      id_producto,
+      nombre,
+      descripcion,
+      imagen,
+      precio,
+      cantidad,
+      total_producto,
+    } = changes;
     cart.id_usuario = id_usuario || cart.id_usuario;
     cart.id_producto = id_producto || cart.id_producto;
     cart.nombre = nombre || cart.nombre;
@@ -76,23 +81,33 @@ class CartService
 
     return {
       original: cartOriginal,
-      actualizado: cart
-    }
+      actualizado: cart,
+    };
   }
 
-  async deleteDB(id){
+  async deleteDB(id) {
     let cart_model = await cartModel.findOne({
-      _id: id
+      _id: id,
     });
 
     const { deletedCount } = await cartModel.deleteOne({
-      _id: id
+      _id: id,
     });
 
-    if(deletedCount <= 0)
+    if (deletedCount <= 0)
       throw boom.notFound('El carrito seleccionado no existe');
 
     return cart_model;
+  }
+
+  async deleteUserCartDB(filter) {
+    let cartDB = await cartModel.find(filter);
+    await cartModel.deleteMany(filter);
+
+    if(cartDB.length <= 0)
+      throw boom.notFound('Carrito vacio');
+
+    return cartDB;
   }
 }
 

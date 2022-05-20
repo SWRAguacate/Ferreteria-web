@@ -6,7 +6,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createInventoryDto, updateInventoryDto, getIdInventoryDto } = require('../middlewares/dtos/inventory.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try {
   const { size } = req.query;
     const inventario = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Inventarios encontrados',
       'Data': inventario
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT

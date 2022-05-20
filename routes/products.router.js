@@ -8,7 +8,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createProductDto, updateProductDto, getIdProductDto } = require('../middlewares/dtos/product.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try{
   const { size } = req.query;
     const product = await service.findDB(size || 10);
     res.json({
@@ -16,6 +17,9 @@ router.get('/', async (req, res)=> {
       'message': 'Productos encontrados',
       'Data': product
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT

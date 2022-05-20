@@ -6,7 +6,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createDeliverDto, updateDeliverDto, getIdDeliverDto } = require('../middlewares/dtos/deliver.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try{
   const { size } = req.query;
     const entrega = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Entregas encontradas',
       'Data': entrega
     });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //SELECT

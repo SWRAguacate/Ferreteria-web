@@ -6,7 +6,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const { createCategoryDto, updateCategoryDto, getIdCategoryDto } = require('../middlewares/dtos/category.dto');
 
 // SELECT
-router.get('/', async (req, res)=> {
+router.get('/', async (req, res, next)=> {
+  try {
   const { size } = req.query;
     const categoria = await service.findDB(size || 10);
     res.json({
@@ -14,6 +15,9 @@ router.get('/', async (req, res)=> {
       'message': 'Categorias encontradas',
       'Data': categoria
     });
+  } catch (error) {
+      next(error);
+    }
 });
 
 //SELECT
