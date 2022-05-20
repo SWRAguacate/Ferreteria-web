@@ -6,9 +6,41 @@ class ProductService
   constructor() {}
 
   async findDB(limit, filter) {
-    let productsDB = await ProductModel.find(filter);
-    productsDB = limit ? productsDB.filter((item, index) => item && index < limit) : productsDB;
-    return productsDB;
+    let product = await ProductModel.find(filter);
+    product = limit ? product.filter((item, index) => item && index < limit) : product;
+
+    if(product == undefined || product == null)
+     throw boom.notFound('Producto no encontrado');
+    else if (product.length <= 0)
+     throw boom.notFound('Producto no existente');
+
+    return product;
+  }
+
+  async findSearchDB(filter) {
+    let product = await ProductModel.find( {
+      nombre: filter.nombre,
+      $or: [ { precio: { $lt: filter.precio } }, { nombre: filter.nombre } ]
+ } )
+
+    if(product == undefined || product == null)
+     throw boom.notFound('Producto no encontrado');
+    else if (product.length <= 0)
+     throw boom.notFound('Producto no existente');
+
+    return product;
+  }
+
+  async findCheapestDB(limit) {
+    let product = await ProductModel.find().sort({precio: 1});
+    product = limit ? product.filter((item, index) => item && index < limit) : product;
+
+    if(product == undefined || product == null)
+     throw boom.notFound('Producto no encontrado');
+    else if (product.length <= 0)
+     throw boom.notFound('Producto no existente');
+
+    return product;
   }
 
   async findOneDB(id) {

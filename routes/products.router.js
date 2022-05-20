@@ -5,7 +5,7 @@ const service = new ProductService();
 //const categoryService = new CategoryService();
 const router = express.Router();
 const validatorHandler = require('../middlewares/validator.handler');
-const { createProductDto, updateProductDto, getIdProductDto } = require('../middlewares/dtos/product.dto');
+const { createProductDto, updateProductDto, getIdProductDto, getSearchDto } = require('../middlewares/dtos/product.dto');
 
 // SELECT
 router.get('/', async (req, res, next)=> {
@@ -23,16 +23,46 @@ router.get('/', async (req, res, next)=> {
 });
 
 //SELECT
+router.get('/cheapest', async (req, res, next)=> {
+  try {
+    const product = await service.findCheapestDB(4);
+   res.json({
+        'success': true,
+        'message': 'Producto encontrado',
+        'Data': product
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//SELECT
 router.get('/:id', validatorHandler(getIdProductDto, 'params'), async (req, res, next)=> {
-    try {
-      const { id } = req.params;
-      const product = await service.findOneDB(id);
-     res.json({
-          'success': true,
-          'message': 'Producto encontrado',
-          'Data': product
-      });
-    } catch (error) {
+  try {
+    const { id } = req.params;
+    const product = await service.findOneDB(id);
+   res.json({
+        'success': true,
+        'message': 'Producto encontrado',
+        'Data': product
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// SELECT CART DE UN USUARIO
+router.post('/search', validatorHandler(getSearchDto, 'body'), async (req, res, next)=> {
+  try {
+  const { nombre, precio, categoria } = req.body;
+  const filter = { nombre: nombre, precio: precio, categoria: categoria }
+    const product = await service.findSearchDB(filter);
+    res.json({
+      'success': true,
+      'message': 'Carritos encontrados',
+      'Data': product
+    });
+  } catch (error) {
       next(error);
     }
 });
