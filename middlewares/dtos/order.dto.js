@@ -4,6 +4,7 @@ const Joi = require('joi');
 const idValidation = Joi.string();
 const dateValidation = Joi.date().greater('now');
 const chargeValidation = Joi.number().integer().min(10);
+const arrayValidation = Joi.array();
 
 //CASOS DE USO
 //CREACIÓN
@@ -11,7 +12,8 @@ const createOrderDto = Joi.object({
   id_usuario: idValidation.required(),
   fecha: dateValidation.required(),
   total_pedido: chargeValidation.required(),
-  codigo: chargeValidation.required()
+  codigo: chargeValidation.required(),
+  productos: arrayValidation.required()
 });
 
 //ACTUALIZACIÓN
