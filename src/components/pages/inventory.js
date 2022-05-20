@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavSp } from './../navsp/IndexNavSp';
-import Inventario from './../inventario/Inventario';
+import {Inventario} from './../inventario/Inventario';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer'
 
@@ -18,9 +18,7 @@ class Inventory extends React.Component {
       <br></br>
       <br></br>
       <NavSp></NavSp>
-      <Inventario
-      callbackMesage={this.cllbckProductMessage}></Inventario>
-
+      <Inventario callbackMesage={this.cllbckProductMessage}></Inventario>
       <br></br>
       <br></br>
       <br></br>

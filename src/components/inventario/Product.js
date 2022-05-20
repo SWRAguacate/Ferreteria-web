@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
-import { Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap';
-import Inventario from './Inventario';
+import React, { Component } from 'react';
+import {
+  Row,
+} from 'reactstrap';
+import FormProduct from './formProduct';
+import Placeholder from './placeholder';
+import { RowInventory } from './RowInventory';
 
 const TYPESHOW = 'show';
 const TYPEEDIT = 'edit';
@@ -10,7 +14,7 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
+      id: '',
       status: false,
       type: TYPESHOW,
       prevType: TYPESHOW,
@@ -19,66 +23,37 @@ class Product extends Component {
     };
   }
 
-  render() {
-    const button = isEdit ?
-    (<Button style={{ width: '6em', margin: '5px' }} size="sm" color="warning" onClick={() => this.saveBDButton(TYPESHOW, TYPEEDIT)}> Editar </Button>) :
-    isShow ?
-    (<Button style={{ width: '6em', margin: '5px' }} size="sm" color="primary" onClick={() => this.editButton(TYPEEDIT, TYPESHOW)}> Guardar </Button>) :
-    (<div></div>);
+  async componentDidMount() {
+    if (this.props.data) {
+      this.setState({
+        status: true,
+        data: this.props.data,
+      });
+      this.forceUpdate();
+    } else if (this.props.id) {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/products${this.props.id}`
+      );
+      const respJson = await response.json();
+      if (respJson.success) {
+        this.setState({
+          status: true,
+          data: respJson.Data,
+        });
+        this.forceUpdate();
+      }
+    }
+  }
 
+  render() {
     const isEdit = this.state.type === TYPEEDIT;
     const isShow = this.state.type === TYPESHOW;
 
-    return (
-      <Card>
-        <CardHeader>
-          <Container>
-            <Row>
-              <Col md={4}><Label>Id Producto</Label></Col>
-              <Col md={4}><Label>Nombre Producto</Label></Col>
-              <Col md={4}><Label>Existencias Producto</Label></Col>
-              <Col md={4}><Label>Acciones</Label></Col>
-            </Row>
-          </Container>
-        </CardHeader>
-        <CardBody>
-                {
-                  isEdit ? (
-                    <FormProduct></FormProduct>
-                  ) : (
-                    <Inventario></Inventario>
-                  )
-                }
-        </CardBody>
-        <nav class="">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link">Previous</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-      </Card>
-    )
+    const finalData = this.state.fakeData != null ? this.state.fakeData : this.state.data;
+
+    return this.state.status === true ? (
+      <RowInventory data={finalData}></RowInventory>
+    ) : (<Placeholder></Placeholder>)
   }
 }
 
