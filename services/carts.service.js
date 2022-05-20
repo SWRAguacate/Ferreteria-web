@@ -106,7 +106,7 @@ class CartService {
     const { deletedCount } = await cartModel.deleteOne(filter);
 
     if (deletedCount <= 0)
-      throw boom.notFound('El producto seleccionado no existe');
+      throw boom.notFound('El carrito seleccionado no existe');
 
     return cart_model;
   }

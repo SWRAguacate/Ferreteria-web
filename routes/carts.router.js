@@ -102,11 +102,11 @@ router.delete('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res,
 });
 
 // DELETE UN DESEADO DE UN USUARIO
-router.delete('/delete/product', validatorHandler(getIdUserProductDto, 'body'), async (req, res, next)=> {
+router.delete('/delete/product/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, next)=> {
   try{
-  const { id_usuario, id_producto } = req.body;
-  const filter = { id_usuario: id_usuario, id_producto: id_producto }
-    const carrito = await service.deleteUserCartDB(filter);
+    const { id } = req.params;
+  const filter = { _id: id }
+    const carrito = await service.deleteOneProductDB(filter);
     res.json({
       'success': true,
       'message': 'Carritos eliminados',
