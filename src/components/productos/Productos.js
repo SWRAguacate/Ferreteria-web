@@ -21,14 +21,13 @@ class Productos extends React.Component {
     this.state = {
       status: false,
       products: [],
-      type: props.type,
+      type: TYPESHOW,
       prevType: TYPESHOW,
     };
   }
 
   render() {
     const isShow = this.state.type === TYPESHOW;
-    const isEmpty= this.state.type === TYPEEMPTY;
 
     return isShow? (
       <Container>
@@ -133,8 +132,6 @@ class Productos extends React.Component {
       <Col className="block-example border border-0 border-dark container">
         <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
           <Button color="success">Alta</Button>
-          <Button color="danger">Baja</Button>
-          <Button color="warning">Cambio</Button>
         </ButtonGroup>
       </Col>
     </Row>

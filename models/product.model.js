@@ -14,7 +14,8 @@ const productSchema = new Schema({
   material: String,
   garantia: String,
   capacidad_tamanio: String,
-  categoria: Array
+  categoria: Array,
+  cantidad: Number
 });
 
 const model = mongoose.model('producto', productSchema);

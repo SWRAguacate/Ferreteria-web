@@ -4,6 +4,7 @@ const Joi = require('joi');
 const idValidation = Joi.string();
 const nameValidation = Joi.string().min(3).max(15);
 const priceValidation = Joi.number().integer().min(10);
+const intValidation = Joi.number().integer();
 const stringValidation = Joi.string();
 const categoriesValidation = Joi.array();
 
@@ -21,7 +22,8 @@ const createProductDto = Joi.object({
   material: stringValidation.required(),
   garantia: stringValidation.required(),
   capacidad_tamanio: stringValidation.required(),
-  categoria: categoriesValidation.required()
+  categoria: categoriesValidation.required(),
+  cantidad: intValidation.required()
 });
 
 //ACTUALIZACIÓN
@@ -37,7 +39,8 @@ const updateProductDto = Joi.object({
   material: stringValidation,
   garantia: stringValidation,
   capacidad_tamanio: stringValidation,
-  categoria: categoriesValidation
+  categoria: categoriesValidation,
+  cantidad: intValidation
 });
 
 //CUANDO REQUERIMOS UN ID

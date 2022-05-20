@@ -12,7 +12,7 @@ export const NavSp = () => (
       </li>
       <li class="nav-item">
                 <Link to={'/products'} className="nav-link">
-                  Productos
+                  Alta productos
                 </Link>
       </li>
       <li class="nav-item">

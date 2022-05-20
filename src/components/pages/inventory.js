@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavSp } from './../navsp/IndexNavSp';
-import { Inventario } from './../inventario/Inventario';
+import Inventario from './../inventario/Inventario';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer'
 

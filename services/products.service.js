@@ -59,9 +59,10 @@ class ProductService
       material: product.material,
       garantia: product.garantia,
       capacidad_tamanio: product.capacidad_tamanio,
-      categoria: product.categoria
+      categoria: product.categoria,
+      cantidad: product.cantidad
     };
-    const { nombre, precio, imagen, descripcion, color, modelo, tipo, marca, material, garantia, capacidad_tamanio, categoria } = changes;
+    const { nombre, precio, imagen, descripcion, color, modelo, tipo, marca, material, garantia, capacidad_tamanio, categoria, cantidad } = changes;
     product.nombre = nombre || product.nombre;
     product.precio = precio || product.precio;
     product.imagen = imagen || product.imagen;
@@ -74,6 +75,7 @@ class ProductService
     product.garantia = garantia || product.garantia;
     product.capacidad_tamanio = capacidad_tamanio || product.capacidad_tamanio;
     product.categoria = categoria || product.categoria;
+    product.cantidad = cantidad || product.cantidad;
     product.save();
 
     return {

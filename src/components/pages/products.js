@@ -18,7 +18,7 @@ class Products extends React.Component {
       <br></br>
       <br></br>
       <NavSp></NavSp>
-      <Productos type={'show'}></Productos>
+      <Productos></Productos>
       <br></br>
       <br></br>
       <br></br>
