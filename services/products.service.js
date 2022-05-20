@@ -43,6 +43,18 @@ class ProductService
     return product;
   }
 
+  async findLowStocktDB(limit) {
+    let product = await ProductModel.find({cantidad: { $gt: 0 }}).sort({cantidad: 1});
+    product = limit ? product.filter((item, index) => item && index < limit) : product;
+
+    if(product == undefined || product == null)
+     throw boom.notFound('Producto no encontrado');
+    else if (product.length <= 0)
+     throw boom.notFound('Producto no existente');
+
+    return product;
+  }
+
   async findOneDB(id) {
     const product = await ProductModel.findOne({
       _id: id

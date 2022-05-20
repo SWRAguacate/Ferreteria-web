@@ -37,6 +37,20 @@ router.get('/cheapest', async (req, res, next)=> {
 });
 
 //SELECT
+router.get('/lowStock', async (req, res, next)=> {
+  try {
+    const product = await service.findLowStocktDB(4);
+   res.json({
+        'success': true,
+        'message': 'Producto encontrado',
+        'Data': product
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//SELECT
 router.get('/:id', validatorHandler(getIdProductDto, 'params'), async (req, res, next)=> {
   try {
     const { id } = req.params;
