@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import React from 'react'
+import React,{useContext, useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Index from './components/pages/index';
@@ -13,7 +13,11 @@ import Products from './components/pages/products';
 import Search from './components/pages/search';
 import ViewProduct from './components/pages/viewProduct';
 
+import { Context } from './context/Context';
+
 function App() {
+  const {dispatch,isFetching} = useContext(Context);
+  const { user } = useContext(Context);
   return (
     <div className="App">
       <Router>
@@ -21,11 +25,11 @@ function App() {
           <Route exact path="/" element={<Index />}></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/register" element={<Register />}></Route>
-          <Route exact path="/cart" element={<Cart />}></Route>
-          <Route exact path="/indexSP" element={<IndexSP />}></Route>
-          <Route exact path="/inventory" element={<Inventory />}></Route>
-          <Route exact path="/orders" element={<Orders />}></Route>
-          <Route exact path="/products" element={<Products />}></Route>
+          <Route exact path="/cart" element={user? <Cart />: <Login />}></Route>
+          <Route exact path="/indexSP" element={user? <IndexSP />: <Login />}></Route>
+          <Route exact path="/inventory" element={user? <Inventory />: <Login />}></Route>
+          <Route exact path="/orders" element={user?<Orders />: <Login />}></Route>
+          <Route exact path="/products" element={user?<Products />: <Login />}></Route>
           <Route exact path="/search" element={<Search />}></Route>
           <Route exact path="/viewProduct" element={<ViewProduct />}></Route>
         </Routes>
