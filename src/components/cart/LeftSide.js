@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React,{useContext, useState,useEffect } from 'react';
 import {
   Card,
   CardBody,
@@ -15,11 +14,11 @@ import ProductA from './productA';
 import Placeholder from './placeholder';
 import cartImage from './img/placeholder.jpg';
 import { Link } from 'react-router-dom';
+import {Context} from '../../context/Context'
 //import from 'react-bootstrap';
 
 const TYPESHOW = "show";
 const TYPEEMPTY = "empty";
-
 class LeftSide extends React.Component {
   constructor(props) {
     super(props);
