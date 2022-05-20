@@ -18,7 +18,8 @@ class Inventory extends React.Component {
       <br></br>
       <br></br>
       <NavSp></NavSp>
-      <Inventario></Inventario>
+      <Inventario
+      callbackMesage={this.cllbckProductMessage}></Inventario>
 
       <br></br>
       <br></br>

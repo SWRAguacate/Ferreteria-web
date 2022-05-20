@@ -100,6 +100,17 @@ class CartService {
     return cart_model;
   }
 
+  async deleteOneProductDB(filter) {
+    let cart_model = await cartModel.findOne(filter);
+
+    const { deletedCount } = await cartModel.deleteOne(filter);
+
+    if (deletedCount <= 0)
+      throw boom.notFound('El producto seleccionado no existe');
+
+    return cart_model;
+  }
+
   async deleteUserCartDB(filter) {
     let cartDB = await cartModel.find(filter);
     await cartModel.deleteMany(filter);

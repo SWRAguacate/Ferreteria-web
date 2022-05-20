@@ -37,4 +37,10 @@ const getIdCartDto = Joi.object({
   id: idValidation.required(),
 });
 
-module.exports = { createCartDto, updateCartDto, getIdCartDto };
+//CUANDO REQUERIMOS UN ID
+const getIdUserProductDto = Joi.object({
+  id_usuario: idValidation.required(),
+  id_producto: idValidation.required(),
+});
+
+module.exports = { createCartDto, updateCartDto, getIdCartDto, getIdUserProductDto };

@@ -3,7 +3,7 @@ const CartService = require('../services/carts.service');
 const service = new CartService();
 const router = express.Router();
 const validatorHandler = require('../middlewares/validator.handler');
-const { createCartDto, updateCartDto, getIdCartDto } = require('../middlewares/dtos/cart.dto');
+const { createCartDto, updateCartDto, getIdCartDto, getIdUserProductDto } = require('../middlewares/dtos/cart.dto');
 
 // SELECT CART DE UN USUARIO
 router.get('/', validatorHandler(getIdCartDto, 'query'), async (req, res, next)=> {
@@ -101,19 +101,20 @@ router.delete('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res,
   }
 });
 
-////DELETE
-//router.delete('/:id', validatorHandler(getIdCartDto, 'params'), async (req, res, next)=> {
-//    try {
-//      const { id } = req.params;
-//      const carrito = await service.deleteUserCartDB(id);
-//      res.json({
-//          'success': true,
-//          'message': 'Carrito eliminado',
-//          'Data': carrito
-//      });
-//    } catch (error) {
-//      next(error);
-//    }
-//});
+// DELETE UN DESEADO DE UN USUARIO
+router.delete('/delete/product', validatorHandler(getIdUserProductDto, 'body'), async (req, res, next)=> {
+  try{
+  const { id_usuario, id_producto } = req.body;
+  const filter = { id_usuario: id_usuario, id_producto: id_producto }
+    const carrito = await service.deleteUserCartDB(filter);
+    res.json({
+      'success': true,
+      'message': 'Carritos eliminados',
+      'Data': carrito
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
