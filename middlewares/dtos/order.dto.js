@@ -2,7 +2,6 @@ const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
 const idValidation = Joi.string();
-const dateValidation = Joi.date().greater('now');
 const chargeValidation = Joi.number();
 const codeValidation = Joi.number().integer();
 const arrayValidation = Joi.array();

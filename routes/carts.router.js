@@ -3,7 +3,7 @@ const CartService = require('../services/carts.service');
 const service = new CartService();
 const router = express.Router();
 const validatorHandler = require('../middlewares/validator.handler');
-const { createCartDto, updateCartDto, getIdCartDto, getIdUserProductDto } = require('../middlewares/dtos/cart.dto');
+const { createCartDto, updateCartDto, getIdCartDto } = require('../middlewares/dtos/cart.dto');
 
 // SELECT CART DE UN USUARIO
 router.get('/', validatorHandler(getIdCartDto, 'query'), async (req, res, next)=> {

@@ -43,9 +43,16 @@ const updateProductDto = Joi.object({
   cantidad: intValidation
 });
 
+//SEARCH
+const getSearchDto = Joi.object({
+  nombre: nameValidation,
+  precio: priceValidation,
+  categoria: categoriesValidation
+});
+
 //CUANDO REQUERIMOS UN ID
 const getIdProductDto = Joi.object({
   id: idValidation.required(),
 });
 
-module.exports = { createProductDto, updateProductDto, getIdProductDto };
+module.exports = { createProductDto, updateProductDto, getIdProductDto, getSearchDto };
