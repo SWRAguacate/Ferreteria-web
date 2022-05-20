@@ -3,7 +3,8 @@ const Joi = require('joi');
 //CRITERIOS DE LOS CAMPOS
 const idValidation = Joi.string();
 const dateValidation = Joi.date().greater('now');
-const chargeValidation = Joi.number().integer().min(10);
+const chargeValidation = Joi.number();
+const codeValidation = Joi.number().integer();
 const arrayValidation = Joi.array();
 
 //CASOS DE USO
@@ -12,7 +13,7 @@ const createOrderDto = Joi.object({
   id_usuario: idValidation.required(),
   fecha: dateValidation.required(),
   total_pedido: chargeValidation.required(),
-  codigo: chargeValidation.required(),
+  codigo: codeValidation.required(),
   productos: arrayValidation.required()
 });
 
@@ -21,7 +22,7 @@ const updateOrderDto = Joi.object({
   id_usuario: idValidation,
   fecha: dateValidation,
   total_pedido: chargeValidation,
-  codigo: chargeValidation
+  codigo: codeValidation
 });
 
 //CUANDO REQUERIMOS UN ID
