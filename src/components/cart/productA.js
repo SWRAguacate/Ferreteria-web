@@ -16,38 +16,11 @@ import cartImage from './img/placeholder.jpg';
 const TYPESHOW = 'show';
 const TYPEDELETE = 'delete';
 function ProductA(props) {
-  /*async componentDidMount() {
-    if (this.props.data) {
-      this.setState({
-        status: true,
-        data: this.props.data,
-      });
-      this.forceUpdate();
-    } else if (this.props.id) {
-      const response = await fetch(
-        `http://localhost:3000/api/v1/carts/product/${this.props.id}`
-      );
-      const respJson = await response.json();
-      if (respJson.success) {
-        this.setState({
-          status: true,
-          data: respJson.Data,
-        });
-        this.forceUpdate();
-      }
-    }
-  }*/
 
-  /*const isShow = this.state.type === 'show';
-  const isDelete = this.state.type === 'delete';*/
   const deleteHandle =  ()=>{
     props.remove(props.data.id)
   }
 
-  //const finalData =this.state.fakeData !== null ? this.state.fakeData : this.state.data;
-
-  //const { id_usuario,id_producto,nombre, descripcion, imagen, precio, cantidad, total_producto } = finalData;
-  //const { nombre, descripcion, cantidad } = finalData;
   return (
     <Card color="light">
       <CardBody>

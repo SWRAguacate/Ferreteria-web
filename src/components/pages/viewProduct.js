@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuNav from './../header/Header';
 import PieFooter from './../footer/Footer';
-import {ViewProductLeft} from './../viewproduct/ViewproductLefta';
+import ViewProductLeft from './../viewproduct/ViewproductLefta';
 
 class ViewProduct extends React.Component {
   constructor() {

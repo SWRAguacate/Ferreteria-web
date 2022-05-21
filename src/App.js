@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/orders" element={user?<Orders />: <Login />}></Route>
           <Route exact path="/products" element={user?<Products />: <Login />}></Route>
           <Route exact path="/search" element={<Search />}></Route>
-          <Route exact path="/viewProduct" element={<ViewProduct />}></Route>
+          <Route exact path="/viewProduct/:productId" element={<ViewProduct />}></Route>
         </Routes>
       </Router>
     </div>

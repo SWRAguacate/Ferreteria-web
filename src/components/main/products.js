@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import './products.css';
 import productImage from './img/placeholder.jpg';
 
@@ -18,125 +18,170 @@ import {
   CardImg,
 } from 'reactstrap';
 
-class Products extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      status: false,
-      products: [],
-    };
-  }
+function Products() {
 
-  render() {
-    return (
-      <div>
-        <div id="products">
-          <div id="so" className="row">
-            <h3>Super ofertas:</h3>
-          </div>
-          <br></br>
-          <div className="container">
-            <CardGroup>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-            </CardGroup>
-          </div>
-          <br></br>
-          <div id="lm" className="row">
-            <h3>Lo mas vendido:</h3>
-          </div>
-          <br></br>
-          <div className="container">
-            <CardGroup>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-              <ProductO
-                title="Producto"
-                category="Categoria"
-                description="Descripcion"
-                productId="1"
-              ></ProductO>
-            </CardGroup>
-          </div>
-          <br></br>
-          <div id="tp" className="row">
-            <h3>Todos los productos:</h3>
-          </div>
-          <br></br>
-        </div>
-        <div className="container">
-          {this.state.products.map((product, index) => (
-            <div key={index}>
-              <ProductA
-                key={index}
-                id={product._id}
-                callbackMessage={() => this.props.callbackMessage}
-                status={this.state.status}
-                data={product}
-              ></ProductA>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const [allP, setAllP] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [saleOne, setSaleOne] = useState([]);
+  const [saleTwo, setSaleTwo] = useState([]);
 
-  componentDidMount() {
-    fetch('http://localhost:3000/api/v1/products/')
-      .then((response) => response.json())
-      .then((respJson) => {
-        if (respJson.success) {
-          this.setState({
-            state: true,
-            products: respJson.Data,
-          });
-          console.log(respJson.Data);
-          this.forceUpdate();
-        }
+  const One = useCallback(async () =>{
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/products/cheapest`
+      );
+      if (!response.ok) {
+        throw new Error('An error has ocurred');
+      }
+
+      const data = await response.json();
+      const DATAARRAY = data.Data;
+      const remapedSaleOne= DATAARRAY.map((aP) => {
+        return {
+          id: aP._id,
+          nombre: aP.nombre,
+          descripcion: aP.descripcion,
+          imagen: aP.imagen,
+          precio: aP.precio,
+        };
       });
-  }
+      console.log(remapedSaleOne)
+      setSaleOne(remapedSaleOne);
+    } catch (error) {
+      setError(error.message);
+    }
 
-  componentWillUnmount(){
+    setIsLoading(false);
+  }, []);
 
-  }
+  const Two = useCallback(async () =>{
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/products/lowStock`
+      );
+      if (!response.ok) {
+        throw new Error('An error has ocurred');
+      }
+
+      const data = await response.json();
+      const DATAARRAY = data.Data;
+      const remapedSaleTwo= DATAARRAY.map((aP) => {
+        return {
+          id: aP._id,
+          nombre: aP.nombre,
+          descripcion: aP.descripcion,
+          imagen: aP.imagen,
+          precio: aP.precio,
+        };
+      });
+
+      setSaleTwo(remapedSaleTwo);
+    } catch (error) {
+      setError(error.message);
+    }
+
+    setIsLoading(false);
+  }, []);
+
+  const allProducts = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/products/`
+      );
+      if (!response.ok) {
+        throw new Error('An error has ocurred');
+      }
+
+      const data = await response.json();
+      const DATAARRAY = data.Data;
+      const remapedAllP = DATAARRAY.map((aP) => {
+        return {
+          id: aP._id,
+          nombre: aP.nombre,
+          descripcion: aP.descripcion,
+          imagen: aP.imagen,
+          precio: aP.precio,
+        };
+      });
+      setAllP(remapedAllP);
+    } catch (error) {
+      setError(error.message);
+    }
+
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    allProducts();
+  }, [allProducts]);
+
+  useEffect(() => {
+    One();
+  }, [One]);
+
+
+  useEffect(() => {
+    Two();
+  }, [Two]);
+
+
+  return (
+    <div>
+      <div id="products">
+        <div id="so" className="row">
+          <h3>Lo mas barato:</h3>
+        </div>
+        <br></br>
+        <div className="container">
+          <CardGroup>
+            {
+              saleOne.map((p) => (
+                <ProductO key={p.id} data={p}></ProductO>
+              ))
+            }
+          </CardGroup>
+        </div>
+        <br></br>
+        <div id="lm" className="row">
+          <h3>Apunto de agotarse:</h3>
+        </div>
+        <br></br>
+        <div className="container">
+          <CardGroup>
+            {
+              saleTwo.map((p) => (
+                <ProductO key={p.id} data={p}></ProductO>
+              ))
+            }
+          </CardGroup>
+        </div>
+        <br></br>
+        <div id="tp" className="row">
+          <h3>Todos los productos:</h3>
+        </div>
+        <br></br>
+      </div>
+      <div className="container">
+        {allP.map((p) => (
+              <ProductA key={p.id} data={p}></ProductA>
+            ))
+
+        }
+
+      </div>
+    </div>
+  );
+
 }
 
 export default Products;
