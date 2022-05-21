@@ -28,6 +28,17 @@ function CartUser() {
   const { dispatch, isFetching } = useContext(Context);
   const { user } = useContext(Context);
 
+  let ph = <Placeholder></Placeholder>;
+  let btn = (
+    <div className="row">
+      <div className="col">
+        <Button type="submit" color="info">
+          Pagar con Tarjeta
+        </Button>
+      </div>
+    </div>
+  );
+
   const fetchCart = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -65,33 +76,55 @@ function CartUser() {
     setIsLoading(false);
   }, []);
 
-
-
-  const removeElementFromStateArray = (hookArray, hookSetter, idelement) => {
+  const removeElementFromStateArray = async (
+    hookArray,
+    hookSetter,
+    idelement
+  ) => {
     let array = [...hookArray];
     let indexItemDelete = null;
-    array.forEach( (a, index ) => {
-    if(a.id == idelement){
-      indexItemDelete = index;
-    }
+    array.forEach((a, index) => {
+      if (a.id == idelement) {
+        indexItemDelete = index;
+      }
     });
-    if(indexItemDelete!=null) {
-    array.splice(indexItemDelete, 1);
-    hookSetter(array);
+    if (indexItemDelete != null) {
+      array.splice(indexItemDelete, 1);
+
+      hookSetter(array);
+
+      const res = await fetch(
+        `http://localhost:3000/api/v1/carts/delete/product/${idelement}`,
+        {
+          method: 'delete',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': 'token-value',
+          },
+        }
+      );
+      if (!res.ok) {
+        console.log('Salio mal');
+      }
+    }
+    debugger;
 
     //codigo para borrar de la bd
-    }
-  }
+  };
 
-  const removeProduct =(idCart)=>{
-    removeElementFromStateArray(cart,setCart,idCart);
-  }
+  const removeProduct = (idCart) => {
+    removeElementFromStateArray(cart, setCart, idCart);
+  };
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
   useEffect(() => {
+    if (cart.length == 0) {
+      ph = <Placeholder></Placeholder>;
+      btn = <div></div>;
+    }
     console.log(cart);
   }, [cart]);
 
@@ -100,9 +133,53 @@ function CartUser() {
     console.log(cart);
   }, []);
 
-  const handleSubmit = async (e) => {
-    const res = await fetch(`http://localhost:3000/api/v1/carts/${user.Data._id}`, {
-      method: 'del',
+  const getTotal = () => {
+    if (cart.length > 0) {
+      var total = 0;
+      cart.forEach((a, index) => {
+        total = total + a.total_producto;
+      });
+
+      return total;
+    } else {
+      return 0;
+    }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    let productos = [];
+    var total = 0;
+
+    var today = new Date();
+
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    cart.forEach((a, index) => {
+      total = parseInt(total + a.total_producto);
+      let producto = {
+        id_producto: a.id_producto,
+        cantidad: a.cantidad,
+        precio: parseFloat(a.precio),
+      };
+      productos.push(producto);
+    });
+    const obj = {
+      id_usuario: user.Data._id,
+      fecha: date,
+      total_pedido: total,
+      codigo: 123321,
+      productos: productos,
+    };
+    console.log(obj);
+    submitDB(obj);
+    /*
+    }*/
+  };
+
+  const submitDB = async (obj) => {
+    const res = await fetch(`http://localhost:3000/api/v1/orders`, {
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': 'token-value',
@@ -112,7 +189,20 @@ function CartUser() {
     if (!res.ok) {
       console.log('Salio mal');
     } else {
-      navigate('/');
+      const res2 = await fetch(
+        `http://localhost:3000/api/v1/carts/${user.Data._id}`,
+        {
+          method: 'delete',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': 'token-value',
+          },
+        }
+      );
+      if (!res2.ok) {
+        console.log('Salio mal');
+      }
+      setCart([]);
     }
   };
 
@@ -124,15 +214,18 @@ function CartUser() {
             <div className="col-sm-5">
               <h2>Carrito de compras</h2>
             </div>
+
             <div className="col-sm-3">
               <Link to="/">
                 <Button color="warning">Seguir comprando</Button>
               </Link>
             </div>
           </div>
-          {cart.map((p) => (
-            <ProductA key={p.id} data={p} remove={removeProduct}></ProductA>
-          ))}
+          {cart.length == 0 && ph}
+          {cart.length > 0 &&
+            cart.map((p) => (
+              <ProductA key={p.id} data={p} remove={removeProduct}></ProductA>
+            ))}
         </div>
       </div>
 
@@ -158,24 +251,9 @@ function CartUser() {
 
             <hr style={{ color: 'white' }}></hr>
             <br></br>
-            <h5 style={{ color: 'white' }}>Total:</h5>
+            <h5 style={{ color: 'white' }}>Total: {getTotal()}$</h5>
             <br></br>
-
-            <Form>
-              <div className="row">
-                <div className="col">
-                  <Button type="submit" color="warning">
-                    Pagar con Paypal
-                  </Button>
-                </div>
-                <div className="col">
-                  <Button type="submit" color="info">
-                    Pagar con Tarjeta
-                  </Button>
-                </div>
-              </div>
-            </Form>
-
+            <form onSubmit={submitHandler}>{cart.length > 0 && btn}</form>
             <br></br>
           </div>
         </div>

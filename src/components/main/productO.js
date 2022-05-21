@@ -1,5 +1,6 @@
 import React from 'react';
 import './products.css';
+
 import productImage from './img/placeholder.jpg';
 import {
   Card,
@@ -16,44 +17,24 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class ProductO extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      someKey: 'someValue',
-      title: this.props.title,
-      category: this.props.category,
-      description: this.props.description,
-      productId: this.props.productId
-    };
-  }
-
-  render() {
-    return (
-      <Card>
-        <CardImg alt="Card image cap" src={productImage} top width="100%" />
-        <CardBody>
-          <CardTitle tag="h5">{this.props.title}</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h6">
-            {this.state.category}
-          </CardSubtitle>
-          <CardText>
-            {this.state.description}
-          </CardText>
-          <Link to="/viewProduct">
+function ProductO(props) {
+  return (
+    <Card>
+      <CardImg alt="Card image cap" src={props.data.imagen} top width="100%" />
+      <CardBody>
+        <CardTitle tag="h5">{props.data.nombre}</CardTitle>
+        <CardSubtitle className="mb-2 text-muted" tag="h6">
+          {props.data.precio}
+        </CardSubtitle>
+        <CardText>{props.data.descripcion}</CardText>
+        <br></br>
+        <br></br>
+        <Link to={`/viewProduct/${props.data?.id}`} className="nav-link">
           <Button color="warning">Ver producto</Button>
-            </Link>
-
-        </CardBody>
-      </Card>
-    );
-  }
-
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue',
-    });
-  }
+        </Link>
+      </CardBody>
+    </Card>
+  );
 }
 
 export default ProductO;
