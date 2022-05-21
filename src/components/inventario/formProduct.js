@@ -131,7 +131,7 @@ export class FormProduct extends Component {
               <Input
               onChange={(e) => this.onChangeInput(this.props.changeCallback, e)}
                 id="capacidad_tamanio"
-                name="capacidad_tamanioo"
+                name="capacidad_tamanio"
                 placeholder={capacidad_tamanio}
                 type="text"
               />
