@@ -2,9 +2,9 @@ const Joi = require('joi');
 
 //CRITERIOS DE LOS CAMPOS
 const idValidation = Joi.string();
-const numberValidation = Joi.number().integer().min(10);
+const numberValidation = Joi.number().integer();
 const nameValidation = Joi.string().min(3).max(15);
-const priceValidation = Joi.number().integer().min(10);
+const priceValidation = Joi.number().integer();
 const stringValidation = Joi.string();
 
 //CASOS DE USO
@@ -17,7 +17,7 @@ const createCartDto = Joi.object({
   imagen: stringValidation.required(),
   precio: priceValidation.required(),
   cantidad: numberValidation.required(),
-  total_producto: numberValidation.required()
+  total_producto: priceValidation.required()
 });
 
 //ACTUALIZACIÓN
