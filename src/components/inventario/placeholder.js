@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Placeholder extends React.Component {
+export class InventoryPlaceHolder extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,7 +23,7 @@ class Placeholder extends React.Component {
               <br></br>
               <br></br>
               <h3 style={{ color: 'white', verticalAlign: 'middle' }}>
-                Sin productos dados de alta
+                Sin productos disponibles
               </h3>
               <br></br>
               <br></br>
@@ -44,5 +44,3 @@ class Placeholder extends React.Component {
     });
   }
 }
-
-export default Placeholder;

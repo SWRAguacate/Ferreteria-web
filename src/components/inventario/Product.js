@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import {
-  Row,
-} from 'reactstrap';
-import FormProduct from './formProduct';
-import Placeholder from './placeholder';
+import {InventoryPlaceHolder} from './placeholder';
 import { RowInventory } from './RowInventory';
 
 const TYPESHOW = 'show';
 const TYPEEDIT = 'edit';
-const TYPEDELETE = 'delete';
 
 class Product extends Component {
   constructor(props) {
@@ -53,7 +48,7 @@ class Product extends Component {
 
     return this.state.status === true ? (
       <RowInventory data={finalData}></RowInventory>
-    ) : (<Placeholder></Placeholder>)
+    ) : (<InventoryPlaceHolder></InventoryPlaceHolder>)
   }
 }
 
