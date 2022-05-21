@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Col, Container, Row } from 'reactstrap';
+import React, { Component } from 'react';
+import { ButtonGroup, Button, Col, Container, Label, Row } from 'reactstrap';
 
 const TYPESHOW = 'show';
 const TYPEEDIT = 'edit';
@@ -18,24 +18,106 @@ export class RowOrder extends Component {
     };
   }
 
+  updateOrder() {
+    const {
+      id_usuario,
+      nombre,
+      fecha,
+      total_pedido,
+      codigo,
+      productos,
+      estatus,
+    } = this.fakeData || {};
+
+    return fetch(`http://localhost:3000/api/v1/orders/${this.props.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        id_usuario,
+        nombre,
+        fecha,
+        total_pedido,
+        codigo,
+        productos,
+        estatus,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+  }
+
+  async saveBDButton(est) {
+    this.fakeData = this.state.data;
+    this.fakeData.estatus = est;
+    const response = await this.updateOrder();
+    const respJson = await response.json();
+    if (respJson.success) {
+      this.setState({
+        data: this.state.data,
+      });
+      this.forceUpdate();
+    } else alert(respJson.message);
+  }
+
   render() {
-    const isShow = this.props.type === 'show';
-    const isDelete = this.props.type === 'delete';
-    const isEdit = this.props.type === 'edit';
+    const { _id, nombre, id_usuario, estatus } = this.state.data;
+    const entregado = estatus === 0;
+    const expirado = estatus === -1;
+    const pendiente = estatus === 1;
 
-    const finalData =
-      this.state.fakeData != null ? this.state.fakeData : this.state.data;
+    const Buttons = pendiente ? (
+      <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
+        <Button
+          style={{ width: '6em', margin: '5px' }}
+          size="sm"
+          color="success"
+          onClick={() => this.saveBDButton(0)}
+        >
+          Entregado{' '}
+        </Button>
+        <Button
+          style={{ width: '6em', margin: '5px' }}
+          size="sm"
+          color="danger"
+          onClick={() => this.saveBDButton(-1)}
+        >
+          Expirado{' '}
+        </Button>
+      </ButtonGroup>
+    ) : expirado ? (
+      <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
+        <Button
+          style={{ width: '6em', margin: '5px' }}
+          size="sm"
+          color="success"
+          onClick={() => this.saveBDButton(0)}
+        >
+          Entregado{' '}
+        </Button>
+        <Button
+          style={{ width: '6em', margin: '5px' }}
+          size="sm"
+          color="warning"
+          onClick={() => this.saveBDButton(1)}
+        >
+          Pendiente{' '}
+        </Button>
+      </ButtonGroup>
+    ) : entregado ? (
+      <Label>Producto entregado</Label>
+    ) : (
+      <div></div>
+    );
 
-    const { _id, nombre, id_usuario, estatus } = finalData;
     return (
       <Container>
-          <Row>
-            <Col>{_id}</Col>
-            <Col>{nombre || "Nombre default"}</Col>
-            <Col>{id_usuario}</Col>
-            <Col>{estatus || "true"}</Col>
-          </Row>
+        <Row>
+          <Col>{_id}</Col>
+          <Col>{nombre || 'Nombre default'}</Col>
+          <Col>{id_usuario}</Col>
+          <Col>{Buttons}</Col>
+        </Row>
       </Container>
-    )
+    );
   }
 }

@@ -25,6 +25,7 @@ const updateOrderDto = Joi.object({
   fecha: idValidation,
   total_pedido: chargeValidation,
   codigo: codeValidation,
+  productos: arrayValidation,
   estatus: codeValidation
 });
 
