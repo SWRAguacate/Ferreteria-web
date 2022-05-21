@@ -1,75 +1,66 @@
 import React from 'react';
 import './Orders.css';
-import { Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Container, Label, Row, Table } from 'reactstrap';
+import {RowOrder} from './RowOrder';
 
-export const Pedidos = () => (
-  <div class="container">
-    <Table
-      responsive
-      striped
-      hover
-      bordered
-      style={{
-        width: '100%',
-        color: 'orangered',
-        alignItems: 'center',
-      }}
-    >
-      <thead>
-        <tr>
-          <th class="text-center">No.pedido</th>
-          <th class="text-center">Nombre cliente</th>
-          <th class="text-center">ID cliente</th>
-          <th class="text-center">Estatus</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </Table>
+export class Pedidos extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: false,
+      orders: []
+    };
+  }
 
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
+  componentDidMount() {
+    fetch(`http://localhost:3000/api/v1/orders/`)
+      .then((response) => response.json())
+      .then((respJson) => {
+        if (respJson.success) {
+          this.setState({
+            state: true,
+            orders: respJson.Data,
+          });
+          this.forceUpdate();
+        }
+      });
+  }
 
-    <nav class="">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">
-            1
-          </a>
-        </li>
-        <li class="page-item active">
-          <a class="page-link" href="#">
-            2
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">
-            3
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">
-            Next
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-);
+  render() {
+    return (
+      <Card>
+        <CardHeader>
+          <Container>
+            <Row>
+              <Col>
+                <Label>No.pedido</Label>
+              </Col>
+              <Col>
+                <Label>Nombre cliente</Label>
+              </Col>
+              <Col>
+                <Label>ID cliente</Label>
+              </Col>
+              <Col>
+                <Label>Estatus</Label>
+              </Col>
+            </Row>
+          </Container>
+        </CardHeader>
+        <CardBody>
+        <Container>
+          {this.state.orders.map((order, index) => (
+            <RowOrder
+            data={order}
+            key={index}
+            id={order._id}
+            type = 'show'
+            callbackMessage={() => this.props.callbackMessage}
+            status={this.state.status}></RowOrder>
+             ))}
+        </Container>
+        </CardBody>
+      </Card>
+    );
+  }
+};

@@ -36,15 +36,21 @@ class OrderService
     });
     let orderOriginal = {
       id_usuario: order.id_usuario,
+      nombre: order.nombre,
       fecha: order.fecha,
       total_pedido: order.total_pedido,
-      codigo: order.codigo
+      codigo: order.codigo,
+      productos: order.productos,
+      estatus: order.estatus
     };
-    const { id_usuario, fecha, total_pedido, codigo } = changes;
+    const { id_usuario, nombre, fecha, total_pedido, codigo, productos, estatus } = changes;
     order.id_usuario = id_usuario || order.id_usuario;
+    order.nombre = nombre || order.nombre;
     order.fecha = fecha || order.fecha;
     order.total_pedido = total_pedido || order.total_pedido;
     order.codigo = codigo || order.codigo;
+    order.productos = productos || order.productos;
+    order.estatus = estatus;
     order.save();
 
     return {

@@ -10,18 +10,22 @@ const arrayValidation = Joi.array();
 //CREACIÓN
 const createOrderDto = Joi.object({
   id_usuario: idValidation.required(),
+  nombre: idValidation.required(),
   fecha: idValidation.required(),
   total_pedido: chargeValidation.required(),
   codigo: codeValidation.required(),
-  productos: arrayValidation.required()
+  productos: arrayValidation.required(),
+  estatus: codeValidation.required()
 });
 
 //ACTUALIZACIÓN
 const updateOrderDto = Joi.object({
   id_usuario: idValidation,
+  nombre: idValidation,
   fecha: idValidation,
   total_pedido: chargeValidation,
-  codigo: codeValidation
+  codigo: codeValidation,
+  estatus: codeValidation
 });
 
 //CUANDO REQUERIMOS UN ID
