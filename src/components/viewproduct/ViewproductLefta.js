@@ -13,7 +13,7 @@ import {
   Table,
 } from 'reactstrap';
 import licuadora from './licuadora.jpg';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import { Context } from '../../context/Context';
 
 function ViewProductLeft() {
@@ -29,6 +29,7 @@ function ViewProductLeft() {
   const [error, setError] = useState(null);
   const { dispatch, isFetching } = useContext(Context);
   const { user } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -103,7 +104,7 @@ function ViewProductLeft() {
       const res = await fetch("http://localhost:3000/api/v1/carts", {
         method: "post",
         headers: {
-          "Content-Type": "application/json",
+          'Content-type': 'application/json; charset=UTF-8',
           "x-access-token": "token-value",
         },
         body: JSON.stringify(obj),
@@ -111,6 +112,9 @@ function ViewProductLeft() {
       if (!res.ok) {
         console.log("Salio mal");
 
+      }
+      else{
+        navigate("/cart");
       }
   }
 
@@ -125,7 +129,7 @@ function ViewProductLeft() {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if(formValues.cantidad < 0){
+    if(parseInt(formValues.cantidad) < 0){
       errors.nombre = "Se requiere una cantidad positiva."
     }
     return errors;

@@ -153,7 +153,7 @@ function Products() {
         </div>
         <br></br>
         <div id="lm" className="row">
-          <h3>Apunto de agotarse:</h3>
+          <h3>A punto de agotarse:</h3>
         </div>
         <br></br>
         <div className="container">

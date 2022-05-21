@@ -107,7 +107,6 @@ function CartUser() {
         console.log('Salio mal');
       }
     }
-    debugger;
 
     //codigo para borrar de la bd
   };
@@ -166,6 +165,8 @@ function CartUser() {
     });
     const obj = {
       id_usuario: user.Data._id,
+      nombre: user.Data.nombre,
+      estatus: 1,
       fecha: date,
       total_pedido: total,
       codigo: 123321,
