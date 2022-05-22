@@ -66,7 +66,7 @@ function ViewProductLeft() {
           marca: p.tipo,
           material: p.material,
           garantia: p.garantia,
-          capacidad: p.capacidad,
+          capacidad: p.capacidad_tamanio,
           categoria: p.categoria,
         };
       });
@@ -226,9 +226,9 @@ function ViewProductLeft() {
             <tr>
               <th scope="row">Capacidad/Tamano</th>
               {product[0]?.capacidad == null && <td>N/A</td>}
-              {product[0]?.capacidad != null && (
+              {product[0]?.capacidad != null && 
                 <td>{product[0]?.capacidad}</td>
-              )}
+              }
               <th scope="row">Categoria</th>
               {product[0]?.categoria == null && <td>N/A</td>}
               {product[0]?.categoria != null && (
