@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', async (req, res, next)=> {
   try {
   const { size } = req.query;
-    const user = await service.findDB(size || 10);
+    const user = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Usuario encontrados',

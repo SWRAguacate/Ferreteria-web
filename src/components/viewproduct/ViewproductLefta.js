@@ -142,11 +142,12 @@ function ViewProductLeft() {
           <img style={{ width: '100%' }} src={product[0]?.imagen}></img>
         </Col>
         <Col className="block-example border border-0 border-dark container ">
-          <a style={{ fontWeight: 'bold', fontSize: '1.5em' }}>
+          <a style={{ fontWeight: 'bold', fontSize: '3em' }}>
             {product[0]?.nombre}
           </a>
           <br></br>
-          <a style={{ fontSize: '1.0em' }}>#{product[0]?.id} </a>
+          <a style={{ fontSize: '1.0em' }} hidden>#{product[0]?.id} </a>
+          <a style={{ fontSize: '1.0em' }}>Precio por unidad: </a>
           <br></br>
           <br></br>
           <a style={{ fontSize: '2.4em', color: 'red', fontWeight: 'bold' }}>
@@ -160,9 +161,11 @@ function ViewProductLeft() {
             }}
           ></div>
         </Col>
-
+        {
+        user ? (
         <Col className="block-example border border-0 border-dark container col-sm-2">
           <Form onSubmit={submitHandler}>
+            <span for="cantidad" fontWeight="700"> Unidades: </span>
             <Input
             id='cantidad'
             name='cantidad'
@@ -180,12 +183,13 @@ function ViewProductLeft() {
             />
             <p style={{color:'white'}}>{formErrors.cantidad}</p>
             <span class="input-group-btn">
-              <Button style={{ width: '100%', marginTop: '5px' }} type="submit">
+              <Button style={{ width: '100%', marginTop: '5px' }} className="btn-warning" type="submit">
                 Agregar al Carrito
               </Button>
             </span>
           </Form>
-        </Col>
+        </Col>) : null
+      }
       </Row>
       <br></br>
       <br></br>
@@ -226,7 +230,7 @@ function ViewProductLeft() {
             <tr>
               <th scope="row">Capacidad/Tamano</th>
               {product[0]?.capacidad == null && <td>N/A</td>}
-              {product[0]?.capacidad != null && 
+              {product[0]?.capacidad != null &&
                 <td>{product[0]?.capacidad}</td>
               }
               <th scope="row">Categoria</th>

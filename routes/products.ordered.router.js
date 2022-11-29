@@ -9,7 +9,7 @@ const { createProductOrderedDto, updateProductOrderedDto, getIdProductOrderedDto
 router.get('/',async (req, res, next)=> {
   try{
   const { size } = req.query;
-    const productoPedido = await service.findDB(size || 10);
+    const productoPedido = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Productos pedidos encontrados',

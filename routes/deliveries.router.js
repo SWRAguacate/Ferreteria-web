@@ -9,7 +9,7 @@ const { createDeliverDto, updateDeliverDto, getIdDeliverDto } = require('../midd
 router.get('/', async (req, res, next)=> {
   try{
   const { size } = req.query;
-    const entrega = await service.findDB(size || 10);
+    const entrega = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Entregas encontradas',

@@ -9,7 +9,7 @@ const { createExpirationDto, updateExpirationDto, getIdExpirationDto } = require
 router.get('/', async (req, res, next)=> {
   try{
   const { size } = req.query;
-    const expiracion = await service.findDB(size || 10);
+    const expiracion = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Expiraciones encontradas',

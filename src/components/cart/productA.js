@@ -32,7 +32,7 @@ function ProductA(props) {
           <div className="col-sm-5 ">
             <CardTitle tag="h5">{props.data.nombre}</CardTitle>
             <CardText>{props.data.descripcion}</CardText>
-            <CardText>{props.data.total_producto}$</CardText>
+            <CardText>${props.data.total_producto}</CardText>
           </div>
           <div className="col-sm-3 ">
             <div className="row">

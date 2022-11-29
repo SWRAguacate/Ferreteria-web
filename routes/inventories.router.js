@@ -9,7 +9,7 @@ const { createInventoryDto, updateInventoryDto, getIdInventoryDto } = require('.
 router.get('/', async (req, res, next)=> {
   try {
   const { size } = req.query;
-    const inventario = await service.findDB(size || 10);
+    const inventario = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Inventarios encontrados',

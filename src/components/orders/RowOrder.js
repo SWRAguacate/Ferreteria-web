@@ -66,7 +66,7 @@ export class RowOrder extends Component {
     const pendiente = estatus === 1;
 
     const Buttons = pendiente ? (
-      <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
+      <ButtonGroup className="container">
         <Button
           style={{ width: '6em', margin: '5px' }}
           size="sm"
@@ -81,11 +81,11 @@ export class RowOrder extends Component {
           color="danger"
           onClick={() => this.saveBDButton(-1)}
         >
-          Expirado{' '}
+          Cambiar a expirado{' '}
         </Button>
       </ButtonGroup>
     ) : expirado ? (
-      <ButtonGroup className="container" style={{ marginTop: '5.5%' }}>
+      <ButtonGroup className="container">
         <Button
           style={{ width: '6em', margin: '5px' }}
           size="sm"
@@ -100,7 +100,7 @@ export class RowOrder extends Component {
           color="warning"
           onClick={() => this.saveBDButton(1)}
         >
-          Pendiente{' '}
+          Cambiar a pendiente{' '}
         </Button>
       </ButtonGroup>
     ) : entregado ? (
@@ -111,7 +111,7 @@ export class RowOrder extends Component {
 
     return (
       <Container>
-        <Row>
+        <Row style={{border: '1px solid #000000', height: '5em', alignItems: 'center'}}>
           <Col>{_id}</Col>
           <Col>{nombre || 'Nombre default'}</Col>
           <Col>{id_usuario}</Col>

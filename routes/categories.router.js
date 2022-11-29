@@ -9,7 +9,7 @@ const { createCategoryDto, updateCategoryDto, getIdCategoryDto } = require('../m
 router.get('/', async (req, res, next)=> {
   try {
   const { size } = req.query;
-    const categoria = await service.findDB(size || 10);
+    const categoria = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Categorias encontradas',

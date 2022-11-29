@@ -11,7 +11,7 @@ const { createProductDto, updateProductDto, getIdProductDto, getSearchDto } = re
 router.get('/', async (req, res, next)=> {
   try{
   const { size } = req.query;
-    const product = await service.findDB(size || 10);
+    const product = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Productos encontrados',

@@ -9,7 +9,7 @@ const { createOrderDto, updateOrderDto, getIdOrderDto } = require('../middleware
 router.get('/', async (req, res, next)=> {
   try {
   const { size } = req.query;
-    const pedido = await service.findDB(size || 10);
+    const pedido = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Pedidos encontrados',

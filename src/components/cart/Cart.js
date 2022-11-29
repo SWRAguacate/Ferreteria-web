@@ -252,7 +252,7 @@ function CartUser() {
 
             <hr style={{ color: 'white' }}></hr>
             <br></br>
-            <h5 style={{ color: 'white' }}>Total: {getTotal()}$</h5>
+            <h5 style={{ color: 'white' }}>Total: ${getTotal()}</h5>
             <br></br>
             <form onSubmit={submitHandler}>{cart.length > 0 && btn}</form>
             <br></br>

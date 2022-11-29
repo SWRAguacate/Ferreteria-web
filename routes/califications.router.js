@@ -9,7 +9,7 @@ const { createCalificationDto, updateCalificationDto, getIdCalificationDto } = r
 router.get('/', async (req, res, next)=> {
   try{
   const { size } = req.query;
-    const calificacion = await service.findDB(size || 10);
+    const calificacion = await service.findDB(size || 1000);
     res.json({
       'success': true,
       'message': 'Calificaciones encontradas',
