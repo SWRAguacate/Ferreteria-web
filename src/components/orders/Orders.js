@@ -42,7 +42,7 @@ export class Pedidos extends React.Component {
                 <Label>ID cliente</Label>
               </Col>
               <Col>
-                <Label>Estatus</Label>
+                <Label className="container">Estatus</Label>
               </Col>
             </Row>
           </Container>

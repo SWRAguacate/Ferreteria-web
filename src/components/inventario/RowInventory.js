@@ -127,6 +127,14 @@ export class RowInventory extends Component {
     });
   }
 
+  cancelButton(type, prevType) {
+    this.setState({
+      type,
+      prevType,
+      fakeData: null,
+    });
+  }
+
   async componentDidMount() {
     if (this.props.data) {
       this.setState({
@@ -160,14 +168,24 @@ export class RowInventory extends Component {
     const { _id, nombre, cantidad } = finalData;
 
     const button = isEdit ? (
-      <Button
-        style={{ width: '5em' }}
-        color="success"
-        onClick={() => this.saveBDButton(TYPESHOW, TYPEEDIT)}
+      <>
+        <Button
+          style={{ width: '6em', marginRight: '1em' }}
+          color="success"
+          onClick={() => this.saveBDButton(TYPESHOW, TYPEEDIT)}
+        >
+          {' '}
+          Guardar cambios{' '}
+        </Button>
+        <Button
+        style={{ width: '6em' }}
+        color="danger"
+        onClick={() => this.cancelButton(TYPESHOW, TYPEEDIT)}
       >
         {' '}
-        Guardar cambios{' '}
+        Cancelar{' '}
       </Button>
+    </>
     ) : isShow ? (
       <Button
         style={{ width: '6em', margin: '5px' }}

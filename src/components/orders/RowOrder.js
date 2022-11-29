@@ -104,7 +104,7 @@ export class RowOrder extends Component {
         </Button>
       </ButtonGroup>
     ) : entregado ? (
-      <Label>Producto entregado</Label>
+      <Label className="container" style={{ margin: '5px', color: 'green', fontWeight: '700' }}>Producto entregado</Label>
     ) : (
       <div></div>
     );
@@ -113,7 +113,7 @@ export class RowOrder extends Component {
       <Container>
         <Row style={{border: '1px solid #000000', height: '5em', alignItems: 'center'}}>
           <Col>{_id}</Col>
-          <Col>{nombre || 'Nombre default'}</Col>
+          <Col style={{ fontWeight: '700' }}>{nombre || 'Nombre default'}</Col>
           <Col>{id_usuario}</Col>
           <Col>{Buttons}</Col>
         </Row>
